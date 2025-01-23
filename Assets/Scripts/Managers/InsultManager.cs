@@ -141,6 +141,7 @@ public class InsultManager : MonoBehaviour
                 complimentMultiplier = compliment.score;
         }
         currentPlayer.IncreaseScore(subjectScore * complimentMultiplier);
+        ChangeCardStates(CardStates.SelectSubject);
     }
 
     public void ChangeCardStates(CardStates state)
@@ -163,6 +164,7 @@ public class InsultManager : MonoBehaviour
                     ChangePlayerState(PlayerSelection.PlayerOne);
                     playedRounds++;
                 }
+
             }
         }
         else
