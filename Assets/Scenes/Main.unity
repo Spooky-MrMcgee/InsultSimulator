@@ -578,11 +578,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1708266551881410450, guid: a4d834d5004473e4a8ac8431f3ddd680, type: 3}
   m_PrefabInstance: {fileID: 8899231908375927579}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1010193899 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7269279404506102560, guid: a4d834d5004473e4a8ac8431f3ddd680, type: 3}
-  m_PrefabInstance: {fileID: 8899231908375927579}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1010193901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,11 +590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7082a851ce9c3418a8d7ebf4fcdd18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOneAnimator: {fileID: 1010193899}
-  playerTwoAnimator: {fileID: 1808501817}
-  animator: {fileID: 1010193899}
-  playerOne: {fileID: 1010193898}
-  playerTwo: {fileID: 1808501816}
 --- !u!1001 &1232437189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -823,6 +813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a939f060916f34cb95565b4dc736ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bob: {fileID: 1808501816}
+  bubba: {fileID: 1010193898}
   cardLibrary: {fileID: 11400000, guid: b6d9559641e5c5e4685eed1ada10f159, type: 2}
 --- !u!114 &1763101244
 MonoBehaviour:
@@ -836,7 +828,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8e8302f31752b4cbc1d4f8e3a9b64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insulted: {fileID: 1010193901}
 --- !u!114 &1763101245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,11 +850,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1614117288701660667, guid: 6399eb48c8f725447899e16bed8aa685, type: 3}
   m_PrefabInstance: {fileID: 8477964592329095190}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1808501817 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7936533936015254324, guid: 6399eb48c8f725447899e16bed8aa685, type: 3}
-  m_PrefabInstance: {fileID: 8477964592329095190}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1808501819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,11 +862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7082a851ce9c3418a8d7ebf4fcdd18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOneAnimator: {fileID: 1010193899}
-  playerTwoAnimator: {fileID: 1808501817}
-  animator: {fileID: 1808501817}
-  playerOne: {fileID: 1010193898}
-  playerTwo: {fileID: 1808501816}
 --- !u!1001 &1981284933
 PrefabInstance:
   m_ObjectHideFlags: 0

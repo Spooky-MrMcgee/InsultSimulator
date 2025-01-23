@@ -28,6 +28,11 @@ public class SpeechBubble : MonoBehaviour
         UpdateText(true);
     }
 
+    public void ToggleVisibility(bool on)
+    {
+        gameObject.SetActive(on);
+    }
+
     public void ResetText()
     {
         sentencePieces.Clear();

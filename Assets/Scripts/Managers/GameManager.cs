@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 	IEnumerator StartGame()
     {
 		yield return new WaitForSeconds(0.5f);
-		ChangeGameState(GameState.Shop);
+		ChangeGameState(GameState.Insult);
 	}
 
 	private void SetPlayers()
