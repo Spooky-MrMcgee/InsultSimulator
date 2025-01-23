@@ -18,6 +18,9 @@ public class UICardVisual : MonoBehaviour
     [SerializeField]
     float animationDuration = 0.5f;
 
+    [SerializeField]
+    public Sprite subjectCard, predicateCard, complimentCard;
+
     RectTransform rect;
 
     Action onClick;
@@ -34,6 +37,19 @@ public class UICardVisual : MonoBehaviour
     public void Setup(CardData card)
     {
         content.SetText(card.content);
+
+        if(card is SubjectCardData)
+        {
+            background.sprite = subjectCard;
+        }
+        else if(card is PredicateCardData)
+        {
+            background.sprite = predicateCard;
+        }
+        else if(card is ComplimentCardData)
+        {
+            background.sprite = complimentCard;
+        }
     }
 
     public void SetAction(Action onClick)
