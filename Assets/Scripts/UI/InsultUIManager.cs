@@ -8,22 +8,32 @@ public class InsultUIManager : MonoBehaviour
     [SerializeField] RectTransform handRoot;
     [SerializeField] Button selectButton;
 
+    [SerializeField] SpeechBubble player1Bubble, player2Bubble;
+
     List<UICard> hand = new();
+
+    InsultManager.PlayerSelection currentPlayer;
+
+    CardData currentCard;
 
     private void Start()
     {
         InsultManager.Instance.PlayerSelected += OnPlayerChanged;
         InsultManager.Instance.StateChanged += OnInsultStateChanged;
+        InsultManager.Instance.CardsPlayed += OnCardsPlayed;
     }
 
     private void OnDestroy()
     {
         InsultManager.Instance.PlayerSelected -= OnPlayerChanged;
         InsultManager.Instance.StateChanged -= OnInsultStateChanged;
+        InsultManager.Instance.CardsPlayed -= OnCardsPlayed;
     }
 
     void OnPlayerChanged(InsultManager.PlayerSelection player, PlayerStruct data)
     {
+        currentPlayer = player;
+
         switch(player)
         {
             case InsultManager.PlayerSelection.PlayerOne:
@@ -37,8 +47,6 @@ public class InsultUIManager : MonoBehaviour
 
     void OnInsultStateChanged(InsultManager.CardStates state, List<CardData> availableCards)
     {
-        Debug.Log(availableCards.Count);
-
         selectButton.interactable = false;
 
         DiscardCurrentCards();
@@ -50,19 +58,36 @@ public class InsultUIManager : MonoBehaviour
 
             cardUI.SetOnSelected(() =>
             {
-                DisableCurrentCards();
-                RefreshCurrentCards();
-
-                InsultManager.Instance.SelectCard(cardUI.Data);
+                InsultManager.Instance.SelectCard(card);
                 selectButton.interactable = true;
+
+                if(currentCard != null)
+                {
+                    GetSpeechBubble().RemoveFrom(currentCard.content);
+                }
+                GetSpeechBubble().AddTo(card.content);
+                currentCard = card;
             });
 
             hand.Add(cardUI);
         }
     }
 
+    void OnCardsPlayed(List<CardData> cards)
+    {
+        GetSpeechBubble().SetFinished();
+    }
+
+    SpeechBubble GetSpeechBubble()
+    {
+        return currentPlayer == InsultManager.PlayerSelection.PlayerOne ? player1Bubble : player2Bubble;
+    }
+
+
     public void PlayCard()
     {
+        DisableCurrentCards();
+        currentCard = null;
         InsultManager.Instance.PlayCard();
     }
 
