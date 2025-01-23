@@ -156,7 +156,9 @@ public class InsultManager : MonoBehaviour
 
     public void ChangeCardStates(CardStates state)
     {
-        if (playedRounds < 3)
+        if (playedRounds > 3)
+            GameManager.gameManager.ChangeGameState(GameManager.GameState.Shop);
+        else
         {
             currentState = state;
             SelectCardType(currentPlayer);
@@ -177,7 +179,5 @@ public class InsultManager : MonoBehaviour
 
             }
         }
-        else
-            GameManager.gameManager.ChangeGameState(GameManager.GameState.Shop);
     }
 }
