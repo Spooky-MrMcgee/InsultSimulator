@@ -24,6 +24,7 @@ public class UICard : MonoBehaviour
     public void SetParent(RectTransform parent)
     {
         transform.SetParent(parent);
+        GetComponent<RectTransform>().position = parent.position;
         RefreshPosition();
     }
 
@@ -34,7 +35,7 @@ public class UICard : MonoBehaviour
 
     IEnumerator AnimateVisual()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         card.AnimateToNewPosition(GetComponent<RectTransform>().position);
     }
 }
