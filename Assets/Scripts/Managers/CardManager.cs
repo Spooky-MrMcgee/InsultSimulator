@@ -116,13 +116,13 @@ public class CardManager : MonoBehaviour
 			selectedCard = card;
 	}
 
-	public void PlayCard(CardData card)
+	public void PlayCard()
 	{
 		if (!selectedCard)
 			return;
 		else
 		{
-			currentHand.Add(card);
+			currentHand.Add(selectedCard);
 			ChangeCardStates(currentState + 1);
 		}
 	}

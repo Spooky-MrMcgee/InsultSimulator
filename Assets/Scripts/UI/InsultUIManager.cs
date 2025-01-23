@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InsultUIManager : MonoBehaviour
 {
-    [SerializeField] RectTransform fieldRoot;
     [SerializeField] RectTransform handRoot;
+    [SerializeField] Button selectButton;
 
-    List<UICard> cards = new();
+    List<UICard> hand = new();
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class InsultUIManager : MonoBehaviour
 
     void OnInsultStateChanged(CardManager.CardStates state, List<CardData> availableCards)
     {
+        selectButton.interactable = false;
+
         DiscardCurrentCards();
 
         foreach (var card in availableCards)
@@ -38,18 +41,21 @@ public class InsultUIManager : MonoBehaviour
                 RefreshCurrentCards();
 
                 CardManager.Instance.SelectCard(cardUI.Data);
-                CardManager.Instance.PlayCard(cardUI.Data);
-
-                cardUI.SetParent(fieldRoot);
+                selectButton.interactable = true;
             });
 
-            cards.Add(cardUI);
+            hand.Add(cardUI);
         }
+    }
+
+    public void PlayCard()
+    {
+        CardManager.Instance.PlayCard();
     }
 
     void RefreshCurrentCards()
     {
-        foreach (var card in cards)
+        foreach (var card in hand)
         {
             card.RefreshPosition();
         }
@@ -57,7 +63,7 @@ public class InsultUIManager : MonoBehaviour
 
     void DisableCurrentCards()
     {
-        foreach (var card in cards)
+        foreach (var card in hand)
         {
             card.SetOnSelected(() => { });
         }
@@ -65,11 +71,11 @@ public class InsultUIManager : MonoBehaviour
 
     void DiscardCurrentCards()
     {
-        foreach (var card in cards)
+        foreach (var card in hand)
         {
             CardSpawner.Instance.DespawnCard(card);
         }
 
-        cards.Clear();
+        hand.Clear();
     }
 }
