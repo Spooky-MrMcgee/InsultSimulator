@@ -67,7 +67,7 @@ public class InsultUIManager : MonoBehaviour
 
             foreach (var card in availableCards)
             {
-                var cardUI = CardSpawner.Instance.SpawnCard(card);
+                var cardUI = CardSpawner.Instance.SpawnCard(card, false);
                 cardUI.SetParent(handRoot);
 
                 cardUI.SetOnSelected(() =>

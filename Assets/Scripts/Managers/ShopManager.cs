@@ -5,12 +5,23 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-	int currency, maxCardLimit = 5, maxPackLimit = 3, maxUpgradeLimit, shopItemToDisplay, randomCardDraw;
+	public static ShopManager Instance { get; private set; }
+
+    private void Awake()
+    {
+		Instance = this;
+    }
+
+	[SerializeField] int moneyPerRound = 15;
+
+	public int Currency { get; private set; }
+	int maxCardLimit = 5, maxPackLimit = 3, maxUpgradeLimit, shopItemToDisplay, randomCardDraw;
 	CardData cardToPurchase;
 	PlayerStruct playerPurchasing;
 	List<CardData> packCards = new List<CardData>();
 	CardPackData cardPack;
 	[SerializeField] CardLibrary cardLibrary;
+	[SerializeField] CardPackLibrary packLibrary;
 	
 	[SerializeField] List<CardData> cardsToDisplay = new List<CardData>();
 	[SerializeField] List<CardPackData> packsToDisplay = new List<CardPackData>();
@@ -24,7 +35,7 @@ public class ShopManager : MonoBehaviour
 
 	ShopStates shopStates;
 
-	public event Action<ShopStates> StateChange;
+	public event Action<ShopStates, List<CardData>, List<CardPackData>> StateChange;
 	public event Action<List<CardData>> PackOpened;
 
     private void Start()
@@ -40,8 +51,7 @@ public class ShopManager : MonoBehaviour
 	{
 		if (state == GameManager.GameState.Shop)
 		{
-			Shop();
-			shopStates = ShopStates.PlayerOneBuying;
+			ChangeShopState(ShopStates.PlayerOneBuying);
 		}
 	}
 
@@ -54,6 +64,8 @@ public class ShopManager : MonoBehaviour
 
 	void PopulateCards()
 	{
+		cardsToDisplay.Clear();
+
         for (int x = 0; x < maxCardLimit; x++)
         {
             shopItemToDisplay = UnityEngine.Random.Range(0, cardLibrary.cards.Count);
@@ -63,10 +75,12 @@ public class ShopManager : MonoBehaviour
 
 	void PopulatePacks()
 	{
+		packsToDisplay.Clear();
+
         for (int x = 0; x < maxPackLimit; x++)
         {
-            shopItemToDisplay = UnityEngine.Random.Range(0, cardLibrary.cards.Count);
-            cardsToDisplay.Add(cardLibrary.cards[shopItemToDisplay]);
+            shopItemToDisplay = UnityEngine.Random.Range(0, packLibrary.cardPacks.Count);
+            packsToDisplay.Add(packLibrary.cardPacks[shopItemToDisplay]);
         }
     }
 	void PopulateUpgrades()
@@ -81,21 +95,39 @@ public class ShopManager : MonoBehaviour
 	public void BuyItem<T>(T purchasedItem)
 	{
 		playerPurchasing = GetCurrentPlayer();
-		if (purchasedItem is CardPackData packItem && currency >= packItem.cost)
+		if (purchasedItem is CardPackData packItem && Currency >= packItem.cost)
 		{
 			OpenPack(packItem);
-			currency -= packItem.cost;
+			Currency -= packItem.cost;
 		}
-		else if (purchasedItem is CardData cardItem && currency >= cardItem.cost)
+		else if (purchasedItem is CardData cardItem && Currency >= cardItem.cost)
 		{
 			playerPurchasing.AddCards(cardItem);
-			currency -= cardItem.cost;
+			Currency -= cardItem.cost;
 		}
-		else if (purchasedItem is UpgradeCard upgradeItem && currency >= upgradeItem.cost)
+		else if (purchasedItem is UpgradeCard upgradeItem && Currency >= upgradeItem.cost)
 		{
 			playerPurchasing.AddUpgrade(upgradeItem);
-			currency -= upgradeItem.cost;
+			Currency -= upgradeItem.cost;
 		}
+	}
+
+	public bool CanBuyItem<T>(T item)
+    {
+		if (item is CardPackData packItem)
+		{
+			return Currency >= packItem.cost;
+		}
+		else if (item is CardData cardItem)
+		{
+			return Currency >= cardItem.cost;
+		}
+		else if (item is UpgradeCard upgradeItem)
+		{
+			return Currency >= upgradeItem.cost;
+		}
+
+		return false;
 	}
 
 	void OpenPack(CardPackData cardPack)
@@ -132,7 +164,8 @@ public class ShopManager : MonoBehaviour
 
 	void ChangeShopState(ShopStates state)
 	{
-		StateChange?.Invoke(state);
 		Shop();
+		Currency = moneyPerRound;
+		StateChange?.Invoke(state, cardsToDisplay, packsToDisplay);
 	}
 }
