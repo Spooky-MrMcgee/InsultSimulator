@@ -11,19 +11,19 @@ public class InsultUIManager : MonoBehaviour
 
     private void Start()
     {
-        CardManager.Instance.StateChanged += OnInsultStateChanged;
+        InsultManager.Instance.StateChanged += OnInsultStateChanged;
     }
 
     private void OnDestroy()
     {
-        CardManager.Instance.StateChanged -= OnInsultStateChanged;
+        InsultManager.Instance.StateChanged -= OnInsultStateChanged;
     }
 
-    void OnPlayerChanged(CardManager.PlayerSelection player)
+    void OnPlayerChanged(InsultManager.PlayerSelection player)
     {
     }
 
-    void OnInsultStateChanged(CardManager.CardStates state, List<CardData> availableCards)
+    void OnInsultStateChanged(InsultManager.CardStates state, List<CardData> availableCards)
     {
         DiscardCurrentCards();
 
@@ -37,8 +37,8 @@ public class InsultUIManager : MonoBehaviour
                 DisableCurrentCards();
                 RefreshCurrentCards();
 
-                CardManager.Instance.SelectCard(cardUI.Data);
-                CardManager.Instance.PlayCard(cardUI.Data);
+                InsultManager.Instance.SelectCard(cardUI.Data);
+                InsultManager.Instance.PlayCard(cardUI.Data);
 
                 cardUI.SetParent(fieldRoot);
             });
