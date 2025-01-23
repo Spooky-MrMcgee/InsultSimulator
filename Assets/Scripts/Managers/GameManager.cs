@@ -28,18 +28,18 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         gameManager = this;
-    }
+		SetPlayers();
+	}
 
     private void Start()
 	{
-		SetPlayers();
 		StartCoroutine(StartGame());
     }
 
 	IEnumerator StartGame()
     {
 		yield return new WaitForSeconds(0.5f);
-		ChangeGameState(GameState.Insult);
+		ChangeGameState(GameState.Shop);
 	}
 
 	private void SetPlayers()

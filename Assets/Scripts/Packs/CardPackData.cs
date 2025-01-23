@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Card/Pack")]
-public class CardPackData : ScriptableObject
+public class CardPackData : CardData
 {
-    public string packName;
     public int cardsToDraw;
-    public int cost;
     public CardData[] cards;
 }

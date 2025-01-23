@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UICardVisual : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI content;
+    TextMeshProUGUI content, cost;
 
     [SerializeField]
     Button button;
@@ -19,7 +19,7 @@ public class UICardVisual : MonoBehaviour
     float animationDuration = 0.5f;
 
     [SerializeField]
-    public Sprite subjectCard, predicateCard, complimentCard;
+    public Sprite subjectCard, predicateCard, complimentCard, packCard;
 
     RectTransform rect;
 
@@ -34,9 +34,15 @@ public class UICardVisual : MonoBehaviour
         rect = GetComponent<RectTransform>();
     }
 
-    public void Setup(CardData card)
+    public void Setup(CardData card, bool showPrice)
     {
+        var price = showPrice ? $"£{card.cost}" : "";
+
+        cost.SetText(price);
+
         content.SetText(card.content);
+        
+        if(showPrice)
 
         if(card is SubjectCardData)
         {
@@ -49,6 +55,13 @@ public class UICardVisual : MonoBehaviour
         else if(card is ComplimentCardData)
         {
             background.sprite = complimentCard;
+        }
+        else if(card is CardPackData)
+        {
+            background.sprite = packCard;
+            background.type = Image.Type.Simple;
+            content.color = Color.white;
+            cost.color = Color.white;
         }
     }
 
@@ -63,6 +76,11 @@ public class UICardVisual : MonoBehaviour
         animTimer = 0;
         currentPos = rect.position;
         StartCoroutine(Animate(position));
+    }
+
+    public void SetInteractable(bool on)
+    {
+        button.interactable = on;
     }
 
     IEnumerator Animate(Vector3 target)

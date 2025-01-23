@@ -17,12 +17,12 @@ public class CardSpawner : MonoBehaviour
         Instance = this;
     }
 
-    public UICard SpawnCard(CardData card)
+    public UICard SpawnCard(CardData card, bool showPrice)
     {
         var inst = Instantiate(prefab, deck);
         var visualInst = Instantiate(visualPrefab, visualRoot);
 
-        inst.Setup(card, visualInst);
+        inst.Setup(card, visualInst, showPrice);
 
         return inst;
     }

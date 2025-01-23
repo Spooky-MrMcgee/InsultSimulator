@@ -8,12 +8,12 @@ public class UICard : MonoBehaviour
     public CardData Data { get; private set; }
     public UICardVisual card;
 
-    public void Setup(CardData data, UICardVisual visual)
+    public void Setup(CardData data, UICardVisual visual, bool showPrice)
     {
         Data = data;
         card = visual;
 
-        card.Setup(Data);
+        card.Setup(Data, showPrice);
     }
 
     public void SetOnSelected(Action onSelected)
@@ -28,6 +28,11 @@ public class UICard : MonoBehaviour
         RefreshPosition();
     }
 
+    public void SetInteractable(bool on)
+    {
+        card.SetInteractable(on);
+    }
+
     public void RefreshPosition()
     {
         StartCoroutine(AnimateVisual());
@@ -35,7 +40,8 @@ public class UICard : MonoBehaviour
 
     IEnumerator AnimateVisual()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return null;
+        yield return null;
         card.AnimateToNewPosition(GetComponent<RectTransform>().position);
     }
 }

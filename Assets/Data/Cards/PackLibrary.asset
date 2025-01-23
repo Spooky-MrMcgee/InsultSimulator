@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff8fc7a0590ca3439c1a33a3c7f6984, type: 3}
   m_Name: PackLibrary
   m_EditorClassIdentifier: 
+  cardPacks:
+  - {fileID: 11400000, guid: 690ce5727b2c201459cc6e4050abdf27, type: 2}
+  - {fileID: 11400000, guid: a84c05a705dc82a4280d35dd0a95fd6e, type: 2}
+  - {fileID: 11400000, guid: 62154570ddb57d64a8fd7ba8414d3502, type: 2}
+  - {fileID: 11400000, guid: 7626c08cd37ec80499095748399751eb, type: 2}
+  - {fileID: 11400000, guid: 8995ec38bee5ab4498dfe69cca37c569, type: 2}
+  - {fileID: 11400000, guid: ca5a267d1f0015f4cb8ab691b658d544, type: 2}

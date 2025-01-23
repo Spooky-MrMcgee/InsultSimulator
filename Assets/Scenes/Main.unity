@@ -849,7 +849,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94255466a365fae4b9eab26598df4809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyPerRound: 15
   cardLibrary: {fileID: 11400000, guid: b6d9559641e5c5e4685eed1ada10f159, type: 2}
+  packLibrary: {fileID: 11400000, guid: 683c108a059dc31468265f21da1139b5, type: 2}
   cardsToDisplay: []
   packsToDisplay: []
 --- !u!1 &1808501816 stripped
@@ -1027,14 +1029,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2505104487419012097, guid: 047de9829c132034cb804d7097115326, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 3486678049097415744, guid: 8de85a34b4079b84bb0f0e9ca98ca589, type: 3}
-    - target: {fileID: 2505104487419012097, guid: 047de9829c132034cb804d7097115326, type: 3}
-      propertyPath: visualPrefab
-      value: 
-      objectReference: {fileID: 4022932724897706948, guid: ec9e8ef1d8496f04fa6cdbec9b7734f2, type: 3}
     - target: {fileID: 3039080120612519222, guid: 047de9829c132034cb804d7097115326, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

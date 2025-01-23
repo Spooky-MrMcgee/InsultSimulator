@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a861b39641626b498e9f6a805adf5a6, type: 3}
   m_Name: StylePack
   m_EditorClassIdentifier: 
-  packName: Style Pack
+  content: Style Pack
+  cost: 0
   cardsToDraw: 3
   cards:
   - {fileID: 11400000, guid: c555fd6594067004880d165c9f2f79d2, type: 2}
