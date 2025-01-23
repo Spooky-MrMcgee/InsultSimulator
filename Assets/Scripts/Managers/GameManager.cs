@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 	public PlayerStruct playerOne { get; private set; }
 	public PlayerStruct playerTwo { get; private set; }
 
+	public GameObject bob, bubba;
+
 	[SerializeField] CardLibrary cardLibrary;
 	List<CardData> startingCards = new List<CardData>();
 
@@ -49,9 +51,8 @@ public class GameManager : MonoBehaviour
             playerOne.AddCards(card);
 			playerTwo.AddCards(card);
         }
-		Debug.Log(playerOne.subjectCards.ToString());
-		Debug.Log(playerOne.predicateCards.ToString());
-		Debug.Log(playerOne.complimentCards.ToString());
+		playerOne.SetMesh(bubba.gameObject.GetComponentInChildren<SkinnedMeshRenderer>());
+		playerTwo.SetMesh(bob.gameObject.GetComponentInChildren<SkinnedMeshRenderer>());
 	}
 
     public void ChangeGameState(GameState gameState)

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Card/Upgrade")]
 public class UpgradeCard : ScriptableObject
 { 
-    public string name;
+    public string upgradeName;
     public int cost;
     public UpgradeEffect effect;
 }

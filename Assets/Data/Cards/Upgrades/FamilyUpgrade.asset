@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ab0e2472b01324092651e9a688bda9, type: 3}
   m_Name: FamilyUpgrade
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeCost: 0
+  name: 
+  cost: 0
   effect: {fileID: 0}

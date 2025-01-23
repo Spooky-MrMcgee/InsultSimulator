@@ -9,6 +9,7 @@ public class PlayerStruct
     public int Score { get; private set; }
     public int RoundsWon { get; private set; }
     public int maxHandSize { get; private set; } = 5;
+    public SkinnedMeshRenderer characterMesh { get; set; }
     public List<PredicateCardData> predicateCards { get; private set; } = new List<PredicateCardData>();
     public List<SubjectCardData> subjectCards { get; private set; } = new List<SubjectCardData>();
     public List<ComplimentCardData> complimentCards { get; private set; } = new List<ComplimentCardData>();
@@ -27,6 +28,11 @@ public class PlayerStruct
     public void AddUpgrade(UpgradeCard upgradeCard)
     { 
         upgradeCards.Add(upgradeCard); 
+    }
+
+    public void SetMesh(SkinnedMeshRenderer meshRenderer)
+    {
+        characterMesh = meshRenderer;
     }
 
     public void IncreaseScore(int addScore)

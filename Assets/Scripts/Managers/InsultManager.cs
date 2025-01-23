@@ -6,7 +6,6 @@ using UnityEngine;
 public class InsultManager : MonoBehaviour
 {
     public static InsultManager Instance;
-
     private void Awake()
     {
         Instance = this;
@@ -29,7 +28,8 @@ public class InsultManager : MonoBehaviour
     public event Action<CardStates, List<CardData>> StateChanged;
     public event Action<PlayerSelection, PlayerStruct> PlayerSelected;
     public event Action<List<CardData>> CardsPlayed;
-    PlayerSelection currentPlayerState;
+    public event Action Insulted;
+    public PlayerSelection currentPlayerState { get; private set; }
     CardStates currentState;
     List<CardData> cardsToDraw = new List<CardData>();
     List<CardData> currentHand = new List<CardData>();
@@ -38,7 +38,7 @@ public class InsultManager : MonoBehaviour
     int drawCardNumber;
     int subjectScore, complimentMultiplier;
     int playedRounds;
-
+    public static InsultManager insultManager;
     private void Start()
     {
         GameManager.gameManager.OnGameStateChanged += StartInsult;
@@ -91,11 +91,20 @@ public class InsultManager : MonoBehaviour
     {
         cardsToDraw.Clear();
         Debug.Log("Drawing Cards");
-        for (int x = 0; x < currentPlayer.maxHandSize; x++)
+        for (int x = 0; x < currentPlayer.maxHandSize;)
         {
+            bool foundCard = false;
             drawCardNumber = UnityEngine.Random.Range(0, cards.Count);
+            foreach (CardData pulledCards in cardsToDraw)
+            {
+                if (cards[drawCardNumber] == pulledCards)
+                    foundCard = true;
+            }
+            if (foundCard)
+                continue;
             cardsToDraw.Add(cards[drawCardNumber]);
             Debug.Log(cardsToDraw[x].content);
+            x++;
         }
     }
 
@@ -140,6 +149,7 @@ public class InsultManager : MonoBehaviour
             else if (card is ComplimentCardData compliment)
                 complimentMultiplier = compliment.score;
         }
+        Insulted?.Invoke();
         currentPlayer.IncreaseScore(subjectScore * complimentMultiplier);
         ChangeCardStates(CardStates.SelectSubject);
     }
