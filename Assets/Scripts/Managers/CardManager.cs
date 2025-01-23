@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-	public enum PlayerSelection
+	public static CardManager Instance;
+
+    private void Awake()
+    {
+		Instance = this;
+    }
+
+    public enum PlayerSelection
 	{
 		PlayerOne,
 		PlayerTwo,
@@ -116,6 +123,7 @@ public class CardManager : MonoBehaviour
 		else
 		{
 			currentHand.Add(card);
+			ChangeCardStates(currentState + 1);
 		}
 	}
 
@@ -135,6 +143,8 @@ public class CardManager : MonoBehaviour
 
 	public void ChangeCardStates(CardStates state)
 	{
+		currentState = state;
+
 		SelectCardType(currentPlayer);
 		StateChanged?.Invoke(state, cardsToDraw);
 

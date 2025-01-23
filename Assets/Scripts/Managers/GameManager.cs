@@ -31,8 +31,14 @@ public class GameManager : MonoBehaviour
     private void Start()
 	{
 		SetPlayers();
-        ChangeGameState(GameState.Insult);
+		StartCoroutine(StartGame());
     }
+
+	IEnumerator StartGame()
+    {
+		yield return new WaitForSeconds(0.5f);
+		ChangeGameState(GameState.Insult);
+	}
 
 	private void SetPlayers()
 	{

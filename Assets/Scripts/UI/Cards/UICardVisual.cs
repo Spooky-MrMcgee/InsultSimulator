@@ -33,7 +33,6 @@ public class UICardVisual : MonoBehaviour
 
     public void OnSelected()
     {
-        Debug.Log("SELECTED");
         onClick?.Invoke();
     }
 }

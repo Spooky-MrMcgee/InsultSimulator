@@ -7,22 +7,26 @@ public class InsultUIManager : MonoBehaviour
     [SerializeField] RectTransform fieldRoot;
     [SerializeField] RectTransform handRoot;
 
-    [SerializeField] List<CardData> startingCards;
-
     List<UICard> cards = new();
 
     private void Start()
     {
-        OnInsultStateChanged(CardManager.CardStates.SelectSubject, startingCards);
+        CardManager.Instance.StateChanged += OnInsultStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        CardManager.Instance.StateChanged -= OnInsultStateChanged;
     }
 
     void OnPlayerChanged(CardManager.PlayerSelection player)
     {
-
     }
 
     void OnInsultStateChanged(CardManager.CardStates state, List<CardData> availableCards)
     {
+        DiscardCurrentCards();
+
         foreach (var card in availableCards)
         {
             var cardUI = CardSpawner.Instance.SpawnCard(card);
@@ -30,17 +34,42 @@ public class InsultUIManager : MonoBehaviour
 
             cardUI.SetOnSelected(() =>
             {
-                //Give card manager new card
-                cardUI.SetParent(fieldRoot);
-                cardUI.SetOnSelected(() => { });
+                DisableCurrentCards();
+                RefreshCurrentCards();
 
-                foreach (var card in cards)
-                {
-                    card.RefreshPosition();
-                }
+                CardManager.Instance.SelectCard(cardUI.Data);
+                CardManager.Instance.PlayCard(cardUI.Data);
+
+                cardUI.SetParent(fieldRoot);
             });
 
             cards.Add(cardUI);
         }
+    }
+
+    void RefreshCurrentCards()
+    {
+        foreach (var card in cards)
+        {
+            card.RefreshPosition();
+        }
+    }
+
+    void DisableCurrentCards()
+    {
+        foreach (var card in cards)
+        {
+            card.SetOnSelected(() => { });
+        }
+    }
+
+    void DiscardCurrentCards()
+    {
+        foreach (var card in cards)
+        {
+            CardSpawner.Instance.DespawnCard(card);
+        }
+
+        cards.Clear();
     }
 }
