@@ -47,29 +47,44 @@ public class InsultUIManager : MonoBehaviour
 
     void OnInsultStateChanged(InsultManager.CardStates state, List<CardData> availableCards)
     {
+        StartCoroutine(StartRound(state, availableCards));
+    }
+
+    IEnumerator StartRound(InsultManager.CardStates state, List<CardData> availableCards)
+    {
         selectButton.interactable = false;
 
         DiscardCurrentCards();
 
-        foreach (var card in availableCards)
+        if (state != InsultManager.CardStates.PlayCards)
         {
-            var cardUI = CardSpawner.Instance.SpawnCard(card);
-            cardUI.SetParent(handRoot);
-
-            cardUI.SetOnSelected(() =>
+            if (state == InsultManager.CardStates.SelectSubject)
             {
-                InsultManager.Instance.SelectCard(card);
-                selectButton.interactable = true;
+                yield return new WaitForSeconds(1);
+                player1Bubble.ResetText();
+                player2Bubble.ResetText();
+            }
 
-                if(currentCard != null)
+            foreach (var card in availableCards)
+            {
+                var cardUI = CardSpawner.Instance.SpawnCard(card);
+                cardUI.SetParent(handRoot);
+
+                cardUI.SetOnSelected(() =>
                 {
-                    GetSpeechBubble().RemoveFrom(currentCard.content);
-                }
-                GetSpeechBubble().AddTo(card.content);
-                currentCard = card;
-            });
+                    InsultManager.Instance.SelectCard(card);
+                    selectButton.interactable = true;
 
-            hand.Add(cardUI);
+                    if (currentCard != null)
+                    {
+                        GetSpeechBubble().RemoveFrom(currentCard.content);
+                    }
+                    GetSpeechBubble().AddTo(card.content);
+                    currentCard = card;
+                });
+
+                hand.Add(cardUI);
+            }
         }
     }
 
