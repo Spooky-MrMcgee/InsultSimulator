@@ -90,7 +90,6 @@ public class InsultManager : MonoBehaviour
     private void DrawCards<T>(List<T> cards) where T : CardData
     {
         cardsToDraw.Clear();
-        Debug.Log("Drawing Cards");
         for (int x = 0; x < currentPlayer.maxHandSize;)
         {
             bool foundCard = false;
@@ -121,9 +120,7 @@ public class InsultManager : MonoBehaviour
 
     public void SelectCard(CardData card)
     {
-        if (selectedCard == card)
-            selectedCard = null;
-        else if (card != selectedCard)
+        if (card != selectedCard)
             selectedCard = card;
     }
 
@@ -156,28 +153,38 @@ public class InsultManager : MonoBehaviour
 
     public void ChangeCardStates(CardStates state)
     {
-        if (playedRounds > 3)
-            GameManager.gameManager.ChangeGameState(GameManager.GameState.Shop);
+        currentState = state;
+
+        if (state == CardStates.PlayCards)
+        {
+            CardsPlayed?.Invoke(currentHand);
+            if (currentPlayerState == PlayerSelection.PlayerOne)
+            {
+                ChangePlayerState(PlayerSelection.PlayerTwo); 
+                SelectCardType(currentPlayer);
+                StateChanged?.Invoke(state, cardsToDraw);
+            }
+            else if (currentPlayerState == PlayerSelection.PlayerTwo)
+            {
+                playedRounds++;
+
+                if (playedRounds > 3)
+                {
+                    playedRounds = 0;
+                    GameManager.gameManager.ChangeGameState(GameManager.GameState.Shop);
+                }
+                else
+                {
+                    ChangePlayerState(PlayerSelection.PlayerOne); 
+                    SelectCardType(currentPlayer);
+                    StateChanged?.Invoke(state, cardsToDraw);
+                }
+            }
+        }
         else
         {
-            currentState = state;
             SelectCardType(currentPlayer);
             StateChanged?.Invoke(state, cardsToDraw);
-
-            if (state == CardStates.PlayCards)
-            {
-                CardsPlayed?.Invoke(currentHand);
-                if (currentPlayerState == PlayerSelection.PlayerOne)
-                {
-                    ChangePlayerState(PlayerSelection.PlayerTwo);
-                }
-                else if (currentPlayerState == PlayerSelection.PlayerTwo)
-                {
-                    ChangePlayerState(PlayerSelection.PlayerOne);
-                    playedRounds++;
-                }
-
-            }
         }
     }
 }

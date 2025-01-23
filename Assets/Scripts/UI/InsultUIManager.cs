@@ -54,8 +54,6 @@ public class InsultUIManager : MonoBehaviour
     {
         selectButton.interactable = false;
 
-        DiscardCurrentCards();
-
         if (state != InsultManager.CardStates.PlayCards)
         {
             if (state == InsultManager.CardStates.SelectSubject)
@@ -63,6 +61,11 @@ public class InsultUIManager : MonoBehaviour
                 yield return new WaitForSeconds(1);
                 player1Bubble.ResetText();
                 player2Bubble.ResetText();
+
+                bool isPlayer1Turn = InsultManager.Instance.currentPlayerState == InsultManager.PlayerSelection.PlayerOne;
+
+                player1Bubble.ToggleVisibility(isPlayer1Turn);
+                player2Bubble.ToggleVisibility(!isPlayer1Turn);
             }
 
             foreach (var card in availableCards)
@@ -102,6 +105,7 @@ public class InsultUIManager : MonoBehaviour
     public void PlayCard()
     {
         DisableCurrentCards();
+        DiscardCurrentCards();
         currentCard = null;
         InsultManager.Instance.PlayCard();
     }

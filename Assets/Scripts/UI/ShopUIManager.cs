@@ -114,6 +114,7 @@ public class ShopUIManager : MonoBehaviour
         }
 
         cardUIs.Clear();
+        packUIs.Clear();
     }
     
     public void ContinueShopping()
