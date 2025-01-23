@@ -8,9 +8,10 @@ public class PlayerStruct
     // Leave room for player upgrades
     public int Score { get; private set; }
     public int RoundsWon { get; private set; }
-    List<PredicateCardData> predicateCards = new List<PredicateCardData>();
-    List<SubjectCardData> subjectCards = new List<SubjectCardData>();
-    List<ComplimentCardData> complimentCards = new List<ComplimentCardData>();
+    public int maxHandSize { get; private set; } = 5;
+    public List<PredicateCardData> predicateCards { get; private set; } = new List<PredicateCardData>();
+    public List<SubjectCardData> subjectCards { get; private set; } = new List<SubjectCardData>();
+    public List<ComplimentCardData> complimentCards { get; private set; } = new List<ComplimentCardData>();
 
     public void AddCards(CardData card)
     {
