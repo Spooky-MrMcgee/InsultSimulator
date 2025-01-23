@@ -29,6 +29,7 @@ public class CardSpawner : MonoBehaviour
 
     public void DespawnCard(UICard card)
     {
+        Destroy(card.card.gameObject);
         Destroy(card.gameObject);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PersistentUIManager : MonoBehaviour
 {
-    public PersistentUIManager Instance { get; private set; }
+    public static PersistentUIManager Instance { get; private set; }
 
     [SerializeField] TextMeshProUGUI player1Score, player2Score;
     [SerializeField] RectTransform player1Turn, player2Turn;

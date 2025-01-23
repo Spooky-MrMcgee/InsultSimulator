@@ -6,7 +6,7 @@ using UnityEngine;
 public class UICard : MonoBehaviour
 {
     public CardData Data { get; private set; }
-    UICardVisual card;
+    public UICardVisual card;
 
     public void Setup(CardData data, UICardVisual visual)
     {

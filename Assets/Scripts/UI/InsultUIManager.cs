@@ -12,16 +12,27 @@ public class InsultUIManager : MonoBehaviour
 
     private void Start()
     {
+        CardManager.Instance.PlayerSelected += OnPlayerChanged;
         CardManager.Instance.StateChanged += OnInsultStateChanged;
     }
 
     private void OnDestroy()
     {
+        CardManager.Instance.PlayerSelected -= OnPlayerChanged;
         CardManager.Instance.StateChanged -= OnInsultStateChanged;
     }
 
-    void OnPlayerChanged(CardManager.PlayerSelection player)
+    void OnPlayerChanged(CardManager.PlayerSelection player, PlayerStruct data)
     {
+        switch(player)
+        {
+            case CardManager.PlayerSelection.PlayerOne:
+                PersistentUIManager.Instance.SetPlayer1Turn(true);
+                break;
+            case CardManager.PlayerSelection.PlayerTwo:
+                PersistentUIManager.Instance.SetPlayer2Turn(true);
+                break;
+        }
     }
 
     void OnInsultStateChanged(CardManager.CardStates state, List<CardData> availableCards)
