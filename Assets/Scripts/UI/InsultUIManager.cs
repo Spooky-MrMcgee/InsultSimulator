@@ -12,31 +12,33 @@ public class InsultUIManager : MonoBehaviour
 
     private void Start()
     {
-        CardManager.Instance.PlayerSelected += OnPlayerChanged;
-        CardManager.Instance.StateChanged += OnInsultStateChanged;
+        InsultManager.Instance.PlayerSelected += OnPlayerChanged;
+        InsultManager.Instance.StateChanged += OnInsultStateChanged;
     }
 
     private void OnDestroy()
     {
-        CardManager.Instance.PlayerSelected -= OnPlayerChanged;
-        CardManager.Instance.StateChanged -= OnInsultStateChanged;
+        InsultManager.Instance.PlayerSelected -= OnPlayerChanged;
+        InsultManager.Instance.StateChanged -= OnInsultStateChanged;
     }
 
-    void OnPlayerChanged(CardManager.PlayerSelection player, PlayerStruct data)
+    void OnPlayerChanged(InsultManager.PlayerSelection player, PlayerStruct data)
     {
         switch(player)
         {
-            case CardManager.PlayerSelection.PlayerOne:
+            case InsultManager.PlayerSelection.PlayerOne:
                 PersistentUIManager.Instance.SetPlayer1Turn(true);
                 break;
-            case CardManager.PlayerSelection.PlayerTwo:
+            case InsultManager.PlayerSelection.PlayerTwo:
                 PersistentUIManager.Instance.SetPlayer2Turn(true);
                 break;
         }
     }
 
-    void OnInsultStateChanged(CardManager.CardStates state, List<CardData> availableCards)
+    void OnInsultStateChanged(InsultManager.CardStates state, List<CardData> availableCards)
     {
+        Debug.Log(availableCards.Count);
+
         selectButton.interactable = false;
 
         DiscardCurrentCards();
@@ -51,7 +53,7 @@ public class InsultUIManager : MonoBehaviour
                 DisableCurrentCards();
                 RefreshCurrentCards();
 
-                CardManager.Instance.SelectCard(cardUI.Data);
+                InsultManager.Instance.SelectCard(cardUI.Data);
                 selectButton.interactable = true;
             });
 
@@ -61,7 +63,7 @@ public class InsultUIManager : MonoBehaviour
 
     public void PlayCard()
     {
-        CardManager.Instance.PlayCard();
+        InsultManager.Instance.PlayCard();
     }
 
     void RefreshCurrentCards()

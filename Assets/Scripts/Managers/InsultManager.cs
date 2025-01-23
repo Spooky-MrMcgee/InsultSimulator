@@ -118,13 +118,13 @@ public class InsultManager : MonoBehaviour
             selectedCard = card;
     }
 
-    public void PlayCard(CardData card)
+    public void PlayCard()
     {
         if (!selectedCard)
             return;
         else
         {
-            currentHand.Add(card);
+            currentHand.Add(selectedCard);
             ChangeCardStates(currentState + 1);
         }
     }
@@ -145,7 +145,7 @@ public class InsultManager : MonoBehaviour
 
     public void ChangeCardStates(CardStates state)
     {
-        if (playedRounds > 3)
+        if (playedRounds < 3)
         {
             currentState = state;
             SelectCardType(currentPlayer);

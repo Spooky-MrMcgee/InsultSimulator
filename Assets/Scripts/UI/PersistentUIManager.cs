@@ -13,6 +13,11 @@ public class PersistentUIManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        UpdateScore();
+    }
+
     public void SetPlayer1Score(int score)
     {
         player1Score.SetText(score.ToString());
@@ -26,8 +31,10 @@ public class PersistentUIManager : MonoBehaviour
     public void SetPlayer1Turn(bool on)
     {
         player1Turn.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, on ? 150 : 30);
-        
-        if(on)
+
+        UpdateScore();
+
+        if (on)
             SetPlayer2Turn(false);
     }
 
@@ -35,7 +42,15 @@ public class PersistentUIManager : MonoBehaviour
     {
         player2Turn.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, on ? 150 : 30);
 
-        if(on)
+        UpdateScore();
+
+        if (on)
             SetPlayer1Turn(false);
+    }
+
+    public void UpdateScore()
+    {
+        SetPlayer1Score(GameManager.gameManager.playerOne.Score);
+        SetPlayer2Score(GameManager.gameManager.playerTwo.Score);
     }
 }
