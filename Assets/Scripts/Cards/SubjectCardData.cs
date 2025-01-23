@@ -4,7 +4,6 @@ using UnityEngine;
 public class SubjectCardData : CardData
 {
     public int score;
-    public int cost;
     public SubjectType type;
 
     public enum SubjectType
