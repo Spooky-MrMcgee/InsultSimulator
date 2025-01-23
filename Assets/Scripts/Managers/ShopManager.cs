@@ -25,6 +25,7 @@ public class ShopManager : MonoBehaviour
 	ShopStates shopStates;
 
 	public event Action<ShopStates> StateChange;
+	public event Action<List<CardData>> PackOpened;
 
     private void Start()
     {
@@ -80,25 +81,34 @@ public class ShopManager : MonoBehaviour
 	public void BuyItem<T>(T purchasedItem)
 	{
 		playerPurchasing = GetCurrentPlayer();
-		if (purchasedItem is CardPackData packItem)
+		if (purchasedItem is CardPackData packItem && currency >= packItem.cost)
 		{
 			OpenPack(packItem);
+			currency -= packItem.cost;
 		}
-		else if (purchasedItem is CardData cardItem)
+		else if (purchasedItem is CardData cardItem && currency >= cardItem.cost)
 		{
 			playerPurchasing.AddCards(cardItem);
+			currency -= cardItem.cost;
 		}
-		// else if (purchasedItem is Upgrade)
+		else if (purchasedItem is UpgradeCard upgradeItem && currency >= upgradeItem.cost)
+		{
+			playerPurchasing.AddUpgrade(upgradeItem);
+			currency -= upgradeItem.cost;
+		}
 	}
 
-	public void OpenPack(CardPackData cardPack)
+	void OpenPack(CardPackData cardPack)
 	{
 		for (int x = 0; x < cardPack.cardsToDraw; x++)
 		{
-			UnityEngine.Random.Range(0, cardPack.cards.Length);
+			randomCardDraw = UnityEngine.Random.Range(0, cardPack.cards.Length);
+			packCards.Add(cardPack.cards[randomCardDraw]);
+			playerPurchasing.AddCards(cardPack.cards[randomCardDraw]);
 		}
+		PackOpened?.Invoke(packCards);
 	}
-	void LeaveShop()
+	public void LeaveShop()
 	{
 		if (shopStates == ShopStates.PlayerOneBuying)
 		{
@@ -120,7 +130,7 @@ public class ShopManager : MonoBehaviour
 		return currentPlayer;
 	}
 
-	public void ChangeShopState(ShopStates state)
+	void ChangeShopState(ShopStates state)
 	{
 		StateChange?.Invoke(state);
 		Shop();

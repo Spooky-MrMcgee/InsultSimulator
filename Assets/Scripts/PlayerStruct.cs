@@ -12,6 +12,7 @@ public class PlayerStruct
     public List<PredicateCardData> predicateCards { get; private set; } = new List<PredicateCardData>();
     public List<SubjectCardData> subjectCards { get; private set; } = new List<SubjectCardData>();
     public List<ComplimentCardData> complimentCards { get; private set; } = new List<ComplimentCardData>();
+    public List<UpgradeCard> upgradeCards { get; private set; }
 
     public void AddCards(CardData card)
     {
@@ -23,6 +24,11 @@ public class PlayerStruct
             complimentCards.Add(complimentCard);
     }
 
+    public void AddUpgrade(UpgradeCard upgradeCard)
+    { 
+        upgradeCards.Add(upgradeCard); 
+    }
+
     public void IncreaseScore(int addScore)
     {
         Score += addScore;
@@ -32,10 +38,4 @@ public class PlayerStruct
     {
         RoundsWon++;
     }
-
-    public void AddUpgrade()
-    {
-        
-    }
-    
 }

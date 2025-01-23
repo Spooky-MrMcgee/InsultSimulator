@@ -7,5 +7,6 @@ public class CardPackData : ScriptableObject
 {
     public string packName;
     public int cardsToDraw;
+    public int cost;
     public CardData[] cards;
 }

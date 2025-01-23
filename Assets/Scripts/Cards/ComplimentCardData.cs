@@ -4,5 +4,4 @@ using UnityEngine;
 public class ComplimentCardData : CardData
 {
     public int score;
-    public int cost;
 }
