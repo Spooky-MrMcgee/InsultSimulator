@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopUIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] RectTransform cardsList, packsList, powerupsList;
+
+    private void Start()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        GameManager.gameManager.OnGameStateChanged -= OnStateChanged;
+    }
+
+    void OnStateChanged(GameManager.GameState state)
+    {
+        if (state == GameManager.GameState.Shop)
+            StartShop();
+    }
+
+    void StartShop()
+    {
+
     }
 }
