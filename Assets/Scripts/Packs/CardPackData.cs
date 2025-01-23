@@ -6,5 +6,6 @@ using UnityEngine;
 public class CardPackData : ScriptableObject
 {
     public string packName;
+    public int cardsToDraw;
     public CardData[] cards;
 }

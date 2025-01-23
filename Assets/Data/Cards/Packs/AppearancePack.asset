@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a861b39641626b498e9f6a805adf5a6, type: 3}
-  m_Name: FamilyPack
+  m_Name: AppearancePack
   m_EditorClassIdentifier: 
-  packName: Family Pack
+  packName: Appearance Pack
   cardsToDraw: 3
   cards:
-  - {fileID: 11400000, guid: 6cd68f1f53073c24da3e988f81a217bb, type: 2}
-  - {fileID: 11400000, guid: d2b843bb5572ff642a14e05766ce54f4, type: 2}
-  - {fileID: 11400000, guid: 248dcb54e9c48334c9b9b0f5a9ec608a, type: 2}
+  - {fileID: 11400000, guid: 76492b8f4d2eeee45a27e3339b4b9c7f, type: 2}
+  - {fileID: 11400000, guid: 09fd6a7ae196f7d46a4e9afe4764c65d, type: 2}
+  - {fileID: 11400000, guid: fe7dc4046a8fe654f9337e2774b691d4, type: 2}
