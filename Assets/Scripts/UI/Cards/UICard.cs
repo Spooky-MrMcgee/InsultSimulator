@@ -1,27 +1,40 @@
 using System;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UICard : MonoBehaviour
 {
-    [SerializeField]
-    TextMeshProUGUI content;
+    public CardData Data { get; private set; }
+    UICardVisual card;
 
-    [SerializeField]
-    Button button;
-
-    [SerializeField]
-    Image background;
-
-    public void Setup(CardData card)
+    public void Setup(CardData data, UICardVisual visual)
     {
-        content.SetText(card.content);
+        Data = data;
+        card = visual;
+
+        card.Setup(Data);
     }
 
-    public void SetAction(Action onClick)
+    public void SetOnSelected(Action onSelected)
     {
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => onClick());
+        card.SetAction(onSelected);
+    }
+
+    public void SetParent(RectTransform parent)
+    {
+        transform.SetParent(parent);
+        RefreshPosition();
+    }
+
+    public void RefreshPosition()
+    {
+        StartCoroutine(AnimateVisual());
+    }
+
+    IEnumerator AnimateVisual()
+    {
+        yield return new WaitForSeconds(0.1f);
+        card.AnimateToNewPosition(GetComponent<RectTransform>().position);
     }
 }
