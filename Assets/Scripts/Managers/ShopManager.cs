@@ -21,12 +21,12 @@ public class ShopManager : MonoBehaviour
 
 	public event Action<ShopStates> StateChange;
 
-    private void OnEnable()
+    private void Start()
     {
 		GameManager.gameManager.OnGameStateChanged += StartShop;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.gameManager.OnGameStateChanged -= StartShop;
     }
