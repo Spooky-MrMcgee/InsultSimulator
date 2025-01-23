@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a861b39641626b498e9f6a805adf5a6, type: 3}
   m_Name: RelationshipPack
   m_EditorClassIdentifier: 
-  packName: Relationship Pack
+  content: Relationship pack
+  cost: 0
   cardsToDraw: 3
   cards:
   - {fileID: 11400000, guid: 34958d024011bed4d83f90834524ea36, type: 2}

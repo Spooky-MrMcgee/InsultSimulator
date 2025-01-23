@@ -142,6 +142,8 @@ public class ShopManager : MonoBehaviour
 	}
 	public void LeaveShop()
 	{
+		Debug.Log("Current state: " + shopStates);
+
 		if (shopStates == ShopStates.PlayerOneBuying)
 		{
 			ChangeShopState(ShopStates.PlayerTwoBuying);
@@ -164,6 +166,8 @@ public class ShopManager : MonoBehaviour
 
 	void ChangeShopState(ShopStates state)
 	{
+		shopStates = state;
+
 		Shop();
 		Currency = moneyPerRound;
 		StateChange?.Invoke(state, cardsToDisplay, packsToDisplay);

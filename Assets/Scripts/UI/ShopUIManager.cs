@@ -8,6 +8,7 @@ public class ShopUIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dosh;
 
     List<UICard> cardUIs = new();
+    List<UICard> packUIs = new();
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class ShopUIManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        GameManager.gameManager.OnGameStateChanged -= OnGameStateChanged;
         ShopManager.Instance.StateChange -= OnStateChanged;
     }
 
@@ -59,8 +61,20 @@ public class ShopUIManager : MonoBehaviour
 
         foreach (var pack in packs)
         {
-            //var ui = CardSpawner.Instance.SpawnCard(pack);
-            //ui.SetParent(cardsList);
+            var ui = CardSpawner.Instance.SpawnCard(pack, true);
+            ui.SetParent(packsList);
+
+            packUIs.Add(ui);
+
+            ui.SetOnSelected(() =>
+            {
+                ShopManager.Instance.BuyItem(pack);
+                packUIs.Remove(ui);
+                CardSpawner.Instance.DespawnCard(ui);
+
+                RefreshCurrentCards();
+                UpdateCardAffordability();
+            });
         }
     }
 
@@ -80,6 +94,11 @@ public class ShopUIManager : MonoBehaviour
         {
             card.RefreshPosition();
         }
+
+        foreach (var card in packUIs)
+        {
+            card.RefreshPosition();
+        }
     }
 
     void DiscardCurrentCards()
@@ -89,6 +108,17 @@ public class ShopUIManager : MonoBehaviour
             CardSpawner.Instance.DespawnCard(card);
         }
 
+        foreach (var card in packUIs)
+        {
+            CardSpawner.Instance.DespawnCard(card);
+        }
+
         cardUIs.Clear();
+    }
+    
+    public void ContinueShopping()
+    {
+        DiscardCurrentCards();
+        ShopManager.Instance.LeaveShop();
     }
 }
