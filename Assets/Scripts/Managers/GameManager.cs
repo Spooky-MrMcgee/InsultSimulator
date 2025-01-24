@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public static GameManager gameManager { get; private set; }
+	public static GameManager Instance { get; private set; }
 	public PlayerStruct playerOne { get; private set; }
 	public PlayerStruct playerTwo { get; private set; }
 
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = this;
+        Instance = this;
 		SetPlayers();
 	}
 

@@ -40,12 +40,12 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
-		GameManager.gameManager.OnGameStateChanged += StartShop;
+		GameManager.Instance.OnGameStateChanged += StartShop;
     }
 
     private void OnDestroy()
     {
-        GameManager.gameManager.OnGameStateChanged -= StartShop;
+        GameManager.Instance.OnGameStateChanged -= StartShop;
     }
     public void StartShop(GameManager.GameState state)
 	{
@@ -150,7 +150,7 @@ public class ShopManager : MonoBehaviour
 		}
 		else if (shopStates == ShopStates.PlayerTwoBuying)
 		{
-			GameManager.gameManager.ChangeGameState(GameManager.GameState.Insult);
+			GameManager.Instance.ChangeGameState(GameManager.GameState.Insult);
 		}
 	}
 	
@@ -158,9 +158,9 @@ public class ShopManager : MonoBehaviour
 	{
 		PlayerStruct currentPlayer = null;
 		if (shopStates == ShopStates.PlayerOneBuying)
-			currentPlayer = GameManager.gameManager.playerOne;
+			currentPlayer = GameManager.Instance.playerOne;
 		else if (shopStates == ShopStates.PlayerTwoBuying)
-			currentPlayer = GameManager.gameManager.playerTwo;
+			currentPlayer = GameManager.Instance.playerTwo;
 		return currentPlayer;
 	}
 

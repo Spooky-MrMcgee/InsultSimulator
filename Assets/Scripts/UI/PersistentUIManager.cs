@@ -50,7 +50,7 @@ public class PersistentUIManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        SetPlayer1Score(GameManager.gameManager.playerOne.Score);
-        SetPlayer2Score(GameManager.gameManager.playerTwo.Score);
+        SetPlayer1Score(GameManager.Instance.playerOne.Score);
+        SetPlayer2Score(GameManager.Instance.playerTwo.Score);
     }
 }

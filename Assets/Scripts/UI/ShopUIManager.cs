@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static GameManager;
 
 public class ShopUIManager : MonoBehaviour
 {
@@ -12,19 +14,21 @@ public class ShopUIManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.gameManager.OnGameStateChanged += OnGameStateChanged;
+        GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
         ShopManager.Instance.StateChange += OnStateChanged;
     }
 
     private void OnDestroy()
     {
-        GameManager.gameManager.OnGameStateChanged -= OnGameStateChanged;
+        GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
         ShopManager.Instance.StateChange -= OnStateChanged;
     }
 
     void OnGameStateChanged(GameManager.GameState gameState)
     {
-        gameObject.SetActive(gameState == GameManager.GameState.Shop);
+        var on = gameState == GameManager.GameState.Shop;
+
+        gameObject.SetActive(on);
     }
 
     void OnStateChanged(ShopManager.ShopStates state, List<CardData> cards, List<CardPackData> packs)
