@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Consorts
   m_EditorClassIdentifier: 
   content: consorts with
-  cost: 0
+  cost: 1

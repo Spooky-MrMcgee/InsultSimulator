@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Look
   m_EditorClassIdentifier: 
   content: look like
+  cost: 1

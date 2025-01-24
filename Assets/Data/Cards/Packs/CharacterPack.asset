@@ -13,9 +13,39 @@ MonoBehaviour:
   m_Name: CharacterPack
   m_EditorClassIdentifier: 
   content: Character Pack
-  cost: 0
+  cost: 10
   cardsToDraw: 3
   cards:
   - {fileID: 11400000, guid: 928a2055cb0798a4b868657bffd07325, type: 2}
+  - {fileID: 11400000, guid: bd304ff79258415468bad669ab7d8a9e, type: 2}
+  - {fileID: 11400000, guid: 4df09d2783a4e1c4f9f5549eb8522d7b, type: 2}
+  - {fileID: 11400000, guid: d9df938c5594b554e8a82ba15faacb1e, type: 2}
+  - {fileID: 11400000, guid: c9d789aa37a943942805035808db8692, type: 2}
+  - {fileID: 11400000, guid: 1f2bb15c05db0cb4ca4b2fbdd473d6d2, type: 2}
+  - {fileID: 11400000, guid: 1dd01ff0726cce445bbf104cb41b0c42, type: 2}
   - {fileID: 11400000, guid: ca434101690591c439d77da939d33131, type: 2}
   - {fileID: 11400000, guid: e91aacd5e67cfae4bad2a277a419afde, type: 2}
+  - {fileID: 11400000, guid: 362072f1c6199fa4498849d595c1ad7d, type: 2}
+  - {fileID: 11400000, guid: b1ff5a8e7c84b0d4babb65ae64c633c2, type: 2}
+  - {fileID: 11400000, guid: 8f3d761844b1a0842b509c662c5b9b26, type: 2}
+  - {fileID: 11400000, guid: be285f02ace7bc34196cfdf8c92d420c, type: 2}
+  - {fileID: 11400000, guid: b549275ef42e3b141b8d345c523d8a55, type: 2}
+  - {fileID: 11400000, guid: 1b0e920f743d2854086152cd481f13e6, type: 2}
+  - {fileID: 11400000, guid: 8bcd5daae58f75046a4e1991e65f5947, type: 2}
+  - {fileID: 11400000, guid: 776bc7585ab6dfa4a835371aab27a79b, type: 2}
+  - {fileID: 11400000, guid: 5059bcb60cb3518419df55b94c7bf18e, type: 2}
+  - {fileID: 11400000, guid: d9243f90cefb72f4593c51d6578d2aae, type: 2}
+  - {fileID: 11400000, guid: 2b01822414997854b944943001252c0d, type: 2}
+  - {fileID: 11400000, guid: 4d4cd413316089d4fa48f16af6d586c2, type: 2}
+  - {fileID: 11400000, guid: 193349d8f514a474db45e8bae0561790, type: 2}
+  - {fileID: 11400000, guid: f664118e1f51a6d48bf24333348bb817, type: 2}
+  - {fileID: 11400000, guid: b4ef18a0dfdd30b4189a13c6c4526240, type: 2}
+  - {fileID: 11400000, guid: 17ae216922d73cf43b68b6d51b60ca39, type: 2}
+  - {fileID: 11400000, guid: 3878a3174a933944982803d2547c9dfb, type: 2}
+  - {fileID: 11400000, guid: 1fa71e5adcdc36545a4c0b58ec9700d3, type: 2}
+  - {fileID: 11400000, guid: 128ec5de54e79144495c3face7c457a5, type: 2}
+  - {fileID: 11400000, guid: 7216bbcf472924341940dbe335d3ab7a, type: 2}
+  - {fileID: 11400000, guid: 2f6e6772083f6b347925cc05e8e3b792, type: 2}
+  - {fileID: 11400000, guid: d3700753f44abda45ba758ca2f49316b, type: 2}
+  - {fileID: 11400000, guid: e72b18526bfd99d40a11fdfc6f46542d, type: 2}
+  - {fileID: 11400000, guid: d4d10f7834addd14fa038f3daf664629, type: 2}

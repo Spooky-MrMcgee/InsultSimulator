@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d2910b2a7f3b144b9602dda6a910d6, type: 3}
   m_Name: Has
   m_EditorClassIdentifier: 
-  content: Hath
+  content: hath
+  cost: 1

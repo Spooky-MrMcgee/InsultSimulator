@@ -13,9 +13,24 @@ MonoBehaviour:
   m_Name: StatusPack
   m_EditorClassIdentifier: 
   content: Status Pack
-  cost: 0
+  cost: 10
   cardsToDraw: 3
   cards:
-  - {fileID: 11400000, guid: c555fd6594067004880d165c9f2f79d2, type: 2}
-  - {fileID: 11400000, guid: ddfee103957438648ab215376a96de64, type: 2}
-  - {fileID: 11400000, guid: e4d488b211c15a34f9ca7e9874072e0a, type: 2}
+  - {fileID: 11400000, guid: 7fad0d65c48bcc24cbfa1668dbd3cae4, type: 2}
+  - {fileID: 11400000, guid: fa4a199f7a0898e4b935c265d52c3c28, type: 2}
+  - {fileID: 11400000, guid: 6e03aa6447c55144897d3b14f31b8b9a, type: 2}
+  - {fileID: 11400000, guid: 60bd903269cbb7e4d96640a32b0cb528, type: 2}
+  - {fileID: 11400000, guid: 27e82dfe0182f9f4da5d73b78481c6ad, type: 2}
+  - {fileID: 11400000, guid: 7b605ac7843aca446ab93498d586c959, type: 2}
+  - {fileID: 11400000, guid: 5e709d5d10c4c4342976161498a5fd68, type: 2}
+  - {fileID: 11400000, guid: 248dcb54e9c48334c9b9b0f5a9ec608a, type: 2}
+  - {fileID: 11400000, guid: 8730c13fe29cdfb4cabdb3c8f0557500, type: 2}
+  - {fileID: 11400000, guid: 5d8e05e0488ad9b4e8886883639b7af0, type: 2}
+  - {fileID: 11400000, guid: a88ba16506ebd1341a775deff7348248, type: 2}
+  - {fileID: 11400000, guid: e2c15bf1ae8d77f4c8380e671f020d76, type: 2}
+  - {fileID: 11400000, guid: 52bb6976a2f101f4babfa78f4ea78734, type: 2}
+  - {fileID: 11400000, guid: 42463ba94815f3e4a89ed797b3fc008a, type: 2}
+  - {fileID: 11400000, guid: 30fad0d32a948e8468aa8288645451cb, type: 2}
+  - {fileID: 11400000, guid: 424ae47fe2c852348963dcb6a1bdf76a, type: 2}
+  - {fileID: 11400000, guid: b183216b0e232b447bfaf4d54fc275ae, type: 2}
+  - {fileID: 11400000, guid: d6d3b925c344f0e4ba8f5c7f93f3cd7d, type: 2}

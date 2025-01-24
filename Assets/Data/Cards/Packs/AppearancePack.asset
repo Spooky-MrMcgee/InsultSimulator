@@ -13,9 +13,22 @@ MonoBehaviour:
   m_Name: AppearancePack
   m_EditorClassIdentifier: 
   content: Appearance Pack
-  cost: 0
+  cost: 10
   cardsToDraw: 3
   cards:
   - {fileID: 11400000, guid: 76492b8f4d2eeee45a27e3339b4b9c7f, type: 2}
   - {fileID: 11400000, guid: 09fd6a7ae196f7d46a4e9afe4764c65d, type: 2}
+  - {fileID: 11400000, guid: 055a05d3205ab154e9d2648de5aa8f6c, type: 2}
+  - {fileID: 11400000, guid: 130f56eb29de3c143a082dd5fee6dece, type: 2}
+  - {fileID: 11400000, guid: 043c3aeae7fbc8543b6b2bbcbb1de260, type: 2}
+  - {fileID: 11400000, guid: 9c432ff91622cbd46841188beb7014f5, type: 2}
   - {fileID: 11400000, guid: fe7dc4046a8fe654f9337e2774b691d4, type: 2}
+  - {fileID: 11400000, guid: c7e0ac1ff33173548a289dfb71442e9c, type: 2}
+  - {fileID: 11400000, guid: d6d9fa95ce400164081082e5e0345e9e, type: 2}
+  - {fileID: 11400000, guid: e23860b89a4a9bd46b61049fa23f44db, type: 2}
+  - {fileID: 11400000, guid: d292a38e990c24d4e84b4ff03f233960, type: 2}
+  - {fileID: 11400000, guid: b9ad56ceaa97c3949beedcddf11d20ca, type: 2}
+  - {fileID: 11400000, guid: 0214b3b196163444d863880766ceef48, type: 2}
+  - {fileID: 11400000, guid: cc2f432a7f7a7384cb3133d5def9e4eb, type: 2}
+  - {fileID: 11400000, guid: 5044c751db0ba3443b31350b034e6eab, type: 2}
+  - {fileID: 11400000, guid: fa7edf80592538745b2576870defd26f, type: 2}

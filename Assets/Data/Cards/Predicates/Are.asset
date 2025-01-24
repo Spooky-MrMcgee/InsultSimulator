@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Are
   m_EditorClassIdentifier: 
   content: art
+  cost: 1

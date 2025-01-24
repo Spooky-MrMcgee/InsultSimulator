@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Smells
   m_EditorClassIdentifier: 
   content: smells of
+  cost: 1

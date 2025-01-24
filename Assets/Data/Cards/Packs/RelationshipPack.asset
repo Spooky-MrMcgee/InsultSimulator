@@ -13,9 +13,19 @@ MonoBehaviour:
   m_Name: RelationshipPack
   m_EditorClassIdentifier: 
   content: Relationship pack
-  cost: 0
+  cost: 10
   cardsToDraw: 3
   cards:
+  - {fileID: 11400000, guid: 4931df1aa01ed8441b7c09f8d42ed494, type: 2}
   - {fileID: 11400000, guid: 34958d024011bed4d83f90834524ea36, type: 2}
+  - {fileID: 11400000, guid: fa295316a4304b645883e7b02f53bfcb, type: 2}
+  - {fileID: 11400000, guid: 9efb77543672fd74facd82a3430b908b, type: 2}
+  - {fileID: 11400000, guid: b3025aac082012840af03db1718a9231, type: 2}
   - {fileID: 11400000, guid: 19f314fd5aeacc24c845d9558f7e2f68, type: 2}
   - {fileID: 11400000, guid: bca48ab4cd97bfd40893f3d6b24ff488, type: 2}
+  - {fileID: 11400000, guid: b90241eed4ea63f488b8f8ec39ea4593, type: 2}
+  - {fileID: 11400000, guid: 07686f7cd9602ec41a86df01a8b5cd25, type: 2}
+  - {fileID: 11400000, guid: a285203eff7b6da4e88a040d4d327013, type: 2}
+  - {fileID: 11400000, guid: 2f6e6772083f6b347925cc05e8e3b792, type: 2}
+  - {fileID: 11400000, guid: 4d889cf70b1810c41909947677f2a4c2, type: 2}
+  - {fileID: 11400000, guid: 6d8d7e37d130efd409b6cdb087949d05, type: 2}

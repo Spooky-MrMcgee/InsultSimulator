@@ -13,9 +13,17 @@ MonoBehaviour:
   m_Name: FamilyPack
   m_EditorClassIdentifier: 
   content: Family Pack
-  cost: 0
+  cost: 10
   cardsToDraw: 3
   cards:
+  - {fileID: 11400000, guid: 1b1a09a459f0a384e9bba1bbb732c8d2, type: 2}
+  - {fileID: 11400000, guid: c7fc582f5a46075429aef73d1c4e64e5, type: 2}
+  - {fileID: 11400000, guid: de3432d0a58e03d4f8421fa948c8e1d6, type: 2}
+  - {fileID: 11400000, guid: c00cb81e7fa11094aa8d58bd29df0000, type: 2}
+  - {fileID: 11400000, guid: 6459b74380d2af047863e8c9b3ccea26, type: 2}
   - {fileID: 11400000, guid: 6cd68f1f53073c24da3e988f81a217bb, type: 2}
-  - {fileID: 11400000, guid: d2b843bb5572ff642a14e05766ce54f4, type: 2}
-  - {fileID: 11400000, guid: 248dcb54e9c48334c9b9b0f5a9ec608a, type: 2}
+  - {fileID: 11400000, guid: b4ff7646d0754e84daa03471e27b768b, type: 2}
+  - {fileID: 11400000, guid: 23732f7849346f041ba46430a82bcef1, type: 2}
+  - {fileID: 11400000, guid: 90f825d8958a37d47aa90d877c2910db, type: 2}
+  - {fileID: 11400000, guid: e00052279c715334d8425a3b10a1d8a9, type: 2}
+  - {fileID: 11400000, guid: 57b970aaefc5cb34f8aef723d5d053af, type: 2}

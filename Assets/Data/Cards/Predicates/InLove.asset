@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: InLove
   m_EditorClassIdentifier: 
   content: smells of
+  cost: 1

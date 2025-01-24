@@ -13,9 +13,17 @@ MonoBehaviour:
   m_Name: StylePack
   m_EditorClassIdentifier: 
   content: Style Pack
-  cost: 0
+  cost: 10
   cardsToDraw: 3
   cards:
   - {fileID: 11400000, guid: c555fd6594067004880d165c9f2f79d2, type: 2}
+  - {fileID: 11400000, guid: 2a151b60e1a823d47af5b1724596d585, type: 2}
+  - {fileID: 11400000, guid: d753b7f9236e69242b0e1253511fa510, type: 2}
+  - {fileID: 11400000, guid: f9a316fe8c07e0343ab108ee17cb618a, type: 2}
   - {fileID: 11400000, guid: ddfee103957438648ab215376a96de64, type: 2}
   - {fileID: 11400000, guid: e4d488b211c15a34f9ca7e9874072e0a, type: 2}
+  - {fileID: 11400000, guid: 57b38f6836809ab4195aa966c87ec7bd, type: 2}
+  - {fileID: 11400000, guid: 54bf3e6eba6d02843b7484dfaa01e017, type: 2}
+  - {fileID: 11400000, guid: 25bf97f1ce4a3dc4883e3826a51f72e6, type: 2}
+  - {fileID: 11400000, guid: 09947b0b8de4b7649870b326d3416ccd, type: 2}
+  - {fileID: 11400000, guid: 3bea136aad1942a499b50053254b8a95, type: 2}

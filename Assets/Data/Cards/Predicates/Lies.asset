@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lies
   m_EditorClassIdentifier: 
   content: lies with
-  cost: 0
+  cost: 1

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Acts
   m_EditorClassIdentifier: 
   content: acts like
-  cost: 0
+  cost: 1

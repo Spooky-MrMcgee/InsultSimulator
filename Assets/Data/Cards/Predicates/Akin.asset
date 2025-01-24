@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Akin
   m_EditorClassIdentifier: 
   content: akin to
+  cost: 1

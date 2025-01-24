@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lives
   m_EditorClassIdentifier: 
   content: lives as
-  cost: 0
+  cost: 1
