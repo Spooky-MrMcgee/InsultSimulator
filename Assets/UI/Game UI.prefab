@@ -563,6 +563,8 @@ MonoBehaviour:
   player2Turn: {fileID: 8880123016819185454}
   player1Rounds: {fileID: 4506440785573474211}
   player2Rounds: {fileID: 2054436723471858842}
+  player1CurrentScore: 0
+  player2CurrentScore: 0
 --- !u!1 &2449727407526600628
 GameObject:
   m_ObjectHideFlags: 0
