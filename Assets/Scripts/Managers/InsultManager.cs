@@ -30,7 +30,7 @@ public class InsultManager : MonoBehaviour
     public event Action<CardState> StateChanged;
     public event Action<PlayerState> PlayerChanged;
     public event Action FinishedRound;
-    public event Action<List<CardData>> CardsPlayed;
+    public event Action<List<CardData>, string> CardsPlayed;
     public event Action Insulted;
     public event Action<int> Scoring;
 
@@ -128,8 +128,9 @@ public class InsultManager : MonoBehaviour
 
     void FinishRound()
     {
-        CalculateHandScore();
-        CardsPlayed?.Invoke(currentHand);
+        string suffixAddon;
+        suffixAddon = CalculateHandScore();
+        CardsPlayed?.Invoke(currentHand, suffixAddon);
 
         currentHand.Clear();
 
@@ -164,11 +165,12 @@ public class InsultManager : MonoBehaviour
         }
     }
 
-    void CalculateHandScore()
+    string CalculateHandScore()
     {
         int subjectScore = 0;
         int complimentMultiplier = 0;
         int scoreToAdd = 0;
+        string upgradeAddon = "";
         SubjectCardData subjectCard = null;
         ComplimentCardData complimentCard = null;
         foreach (CardData card in currentHand)
@@ -194,21 +196,30 @@ public class InsultManager : MonoBehaviour
 
         if (currentPlayerState == PlayerState.PlayerOne)
         {
-            foreach (UpgradeCard upgradeCard in GameManager.Instance.playerOne.upgradeCards)
+            foreach (UpgradeCard upgradeCard in GameManager.Instance.playerTwo.upgradeCards)
             {
-                scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
-                Debug.Log("New score is " + scoreToAdd);
+                if (upgradeCard is UpgradeCategory upgradeCategory && upgradeCategory.subjectType == subjectCard.type)
+                {
+                    scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
+                    upgradeAddon = upgradeCard.insultAddon;
+                }
             }
         }
         else if (currentPlayerState == PlayerState.PlayerTwo)
         {
             foreach (UpgradeCard upgradeCard in GameManager.Instance.playerTwo.upgradeCards)
             {
-                scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
+                if (upgradeCard is UpgradeCategory upgradeCategory && upgradeCategory.subjectType == subjectCard.type)
+                {
+                    scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
+                    upgradeAddon = upgradeCard.insultAddon;
+                }
             }
         }
         var highscore = GetActivePlayer().IncreaseScore(scoreToAdd);
         if (highscore) GetActivePlayer().highestScoreInsult = new List<CardData>(currentHand);
+
+        return upgradeAddon;
     }
 
     PlayerStruct GetActivePlayer()
