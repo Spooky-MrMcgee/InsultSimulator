@@ -18,6 +18,7 @@ public class InsultUIManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.OnGameStateChanged += GameStateChanged;
         InsultManager.Instance.PlayerChanged += OnPlayerChanged;
         InsultManager.Instance.StateChanged += OnInsultStateChanged;
         InsultManager.Instance.CardsPlayed += OnCardsPlayed;
@@ -30,6 +31,16 @@ public class InsultUIManager : MonoBehaviour
         InsultManager.Instance.StateChanged -= OnInsultStateChanged;
         InsultManager.Instance.CardsPlayed -= OnCardsPlayed;
         InsultManager.Instance.FinishedRound -= OnScoreChanged;
+    }
+
+    void GameStateChanged(GameManager.GameState state)
+    {
+        var on = state == GameManager.GameState.Insult;
+
+        if (on)
+            transform.localScale = Vector3.one;
+        else
+            transform.localScale = Vector3.zero;
     }
 
     void OnPlayerChanged(InsultManager.PlayerState player)
