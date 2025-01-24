@@ -114,6 +114,7 @@ public class InsultUIManager : MonoBehaviour
     {
         if (suffix != "")
             GetSpeechBubble().AddTo("," + "\n" + suffix);
+        Debug.Log(suffix);
         GetSpeechBubble().SetFinished();
     }
 

@@ -196,7 +196,7 @@ public class InsultManager : MonoBehaviour
 
         if (currentPlayerState == PlayerState.PlayerOne)
         {
-            foreach (UpgradeCard upgradeCard in GameManager.Instance.playerTwo.upgradeCards)
+            foreach (UpgradeCard upgradeCard in GameManager.Instance.playerOne.upgradeCards)
             {
                 if (upgradeCard is UpgradeCategory upgradeCategory && upgradeCategory.subjectType == subjectCard.type)
                 {

@@ -155,7 +155,8 @@ public class ShopManager : MonoBehaviour
 		}
 		else if (shopStates == ShopStates.PlayerTwoBuying)
 		{
-			GameManager.Instance.ChangeGameState(GameManager.GameState.Insult);
+            moneyPerRound += 5;
+            GameManager.Instance.ChangeGameState(GameManager.GameState.Insult);
 		}
 	}
 	
