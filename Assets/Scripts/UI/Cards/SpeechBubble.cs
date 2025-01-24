@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SpeechBubble : MonoBehaviour
 {
+    [SerializeField] float typewriterSpeed = 0.1f;
     [SerializeField] TextMeshProUGUI textArea;
     [SerializeField] LayoutGroup layout;
 
@@ -41,12 +42,36 @@ public class SpeechBubble : MonoBehaviour
 
     public void UpdateText(bool finished)
     {
-        layout.enabled = false;
-        var sentence = string.Join(" ", sentencePieces);
+        if(!gameObject.activeInHierarchy || sentencePieces.Count == 0)
+        {
+            layout.enabled = false;
+            textArea.SetText("");
+            layout.enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layout.transform as RectTransform);
+            return;
+        }
 
+        StopAllCoroutines();
+        StartCoroutine(TypewriteAnimation(finished));
+    }
+
+    IEnumerator TypewriteAnimation(bool finished)
+    {
+        var sentence = string.Join(" ", sentencePieces);
         sentence += finished ? "!" : "...";
-        textArea.SetText(sentence);
-        layout.enabled = true;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(layout.transform as RectTransform);
+
+        var charactersToGoBack = finished ? sentence.Length - 1 : sentence.Length - sentencePieces[^1].Length;
+
+        for (int i = charactersToGoBack; i < sentence.Length; i++)
+        {
+            var content = sentence.Substring(0, i + 1);
+
+            layout.enabled = false;
+            textArea.SetText(content);
+            layout.enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layout.transform as RectTransform);
+
+            yield return new WaitForSeconds(typewriterSpeed);
+        }
     }
 }
