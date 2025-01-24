@@ -24,6 +24,7 @@ public class InsultManager : MonoBehaviour
         SelectCompliment,
     }
 
+    public int roundsToPlay = 3;
     public int maxHandSize = 5;
 
     public event Action<CardState> StateChanged;
@@ -130,9 +131,10 @@ public class InsultManager : MonoBehaviour
 
         currentHand.Clear();
 
-        playedRounds++;
+        if(currentPlayerState == PlayerState.PlayerTwo)
+            playedRounds++;
 
-        if(playedRounds >= 3)
+        if(playedRounds >= roundsToPlay)
         {
             GameManager.Instance.ChangeGameState(GameManager.GameState.Shop);
             playedRounds = 0;

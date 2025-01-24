@@ -828,6 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8e8302f31752b4cbc1d4f8e3a9b64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundsToPlay: 3
   maxHandSize: 5
   currentPlayerState: 0
   currentState: 0
@@ -1013,6 +1014,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2505104487419012097, guid: 047de9829c132034cb804d7097115326, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 3486678049097415744, guid: 2fd148e063e6409488769b80cc281f9e, type: 3}
     - target: {fileID: 3039080120612519222, guid: 047de9829c132034cb804d7097115326, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
