@@ -142,8 +142,6 @@ public class ShopManager : MonoBehaviour
 	}
 	public void LeaveShop()
 	{
-		Debug.Log("Current state: " + shopStates);
-
 		if (shopStates == ShopStates.PlayerOneBuying)
 		{
 			ChangeShopState(ShopStates.PlayerTwoBuying);
