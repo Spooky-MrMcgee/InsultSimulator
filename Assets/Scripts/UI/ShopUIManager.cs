@@ -12,6 +12,9 @@ public class ShopUIManager : MonoBehaviour
     List<UICard> cardUIs = new();
     List<UICard> packUIs = new();
 
+    List<CardData> playerCards;
+    List<CardPackData> playerPacks;
+
     private void Start()
     {
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -28,7 +31,19 @@ public class ShopUIManager : MonoBehaviour
     {
         var on = gameState == GameManager.GameState.Shop;
 
-        gameObject.SetActive(on);
+        if (on)
+            StartCoroutine(DisplayShop());
+        else
+            transform.localScale = Vector3.zero;
+    }
+
+    IEnumerator DisplayShop()
+    {
+        yield return new WaitForSeconds(2);
+
+        transform.localScale = Vector3.one;
+
+        StartShop();
     }
 
     void OnStateChanged(ShopManager.ShopStates state, List<CardData> cards, List<CardPackData> packs)
@@ -38,14 +53,20 @@ public class ShopUIManager : MonoBehaviour
         else
             PersistentUIManager.Instance.SetPlayer2Turn(true);
 
-        StartShop(cards, packs);
+        playerCards = cards;
+        playerPacks = packs;
+
+        if(state == ShopManager.ShopStates.PlayerTwoBuying)
+        {
+            StartShop();
+        }
     }
 
-    void StartShop(List<CardData> cards, List<CardPackData> packs)
+    void StartShop()
     {
         UpdateCardAffordability();
 
-        foreach (var card in cards)
+        foreach (var card in playerCards)
         {
             var ui = CardSpawner.Instance.SpawnCard(card, true);
             ui.SetParent(cardsList);
@@ -63,7 +84,7 @@ public class ShopUIManager : MonoBehaviour
             });
         }
 
-        foreach (var pack in packs)
+        foreach (var pack in playerPacks)
         {
             var ui = CardSpawner.Instance.SpawnCard(pack, true);
             ui.SetParent(packsList);
