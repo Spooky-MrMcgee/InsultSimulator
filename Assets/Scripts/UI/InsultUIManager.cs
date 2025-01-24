@@ -99,8 +99,10 @@ public class InsultUIManager : MonoBehaviour
         }
     }
 
-    void OnCardsPlayed(List<CardData> cards)
+    void OnCardsPlayed(List<CardData> cards, string suffix)
     {
+        if (suffix != "")
+            GetSpeechBubble().AddTo("," + "\n" + suffix);
         GetSpeechBubble().SetFinished();
     }
 
