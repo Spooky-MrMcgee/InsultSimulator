@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Appearance Multiplier
   cost: 10
+  insultAddon: and your eyebags make you look portly
   multiplier: 2
   subjectType: 3

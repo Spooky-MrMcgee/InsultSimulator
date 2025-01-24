@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Character Multiplier
   cost: 10
+  insultAddon: you sir, are dim and dimmer
   multiplier: 2
   subjectType: 4

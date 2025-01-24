@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
 	public GameObject bob, bubba;
 
+	public GameObject startUI;
+
 	[SerializeField] CardLibrary cardLibrary;
 	List<CardData> startingCards = new List<CardData>();
 
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
 
 	public enum GameState
 	{
+		Start,
 		Insult,
 		Shop,
 		Finish
@@ -34,12 +37,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
 	{
-		StartCoroutine(StartGame());
+		StartGame();
     }
 
-	IEnumerator StartGame()
+	void StartGame()
     {
-		yield return new WaitForSeconds(0.5f);
+		ChangeGameState(GameState.Start);
+	}
+
+	public void StartInsult()
+	{
+		startUI.SetActive(false);
 		ChangeGameState(GameState.Insult);
 	}
 

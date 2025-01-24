@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Family Multiplier
   cost: 10
+  insultAddon: and blast it all to your forefathers
   multiplier: 2
   subjectType: 0
