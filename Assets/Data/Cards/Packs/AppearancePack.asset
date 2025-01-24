@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Appearance Pack
   cost: 10
-  cardsToDraw: 3
+  cardsToDraw: 5
   cards:
   - {fileID: 11400000, guid: 76492b8f4d2eeee45a27e3339b4b9c7f, type: 2}
   - {fileID: 11400000, guid: 09fd6a7ae196f7d46a4e9afe4764c65d, type: 2}

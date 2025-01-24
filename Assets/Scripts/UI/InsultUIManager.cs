@@ -39,8 +39,10 @@ public class InsultUIManager : MonoBehaviour
 
         if (on)
             transform.localScale = Vector3.one;
-        else
+        else if(state != GameManager.GameState.Start)
             Invoke(nameof(Disable), 2);
+        else
+            transform.localScale = Vector3.zero;
     }
 
     void Disable()
@@ -119,7 +121,6 @@ public class InsultUIManager : MonoBehaviour
     {
         if (suffix != "")
             GetSpeechBubble().AddTo("," + "\n" + suffix);
-        Debug.Log(suffix);
         GetSpeechBubble().SetFinished();
     }
 

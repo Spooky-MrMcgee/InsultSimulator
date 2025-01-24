@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Relationship pack
   cost: 10
-  cardsToDraw: 3
+  cardsToDraw: 5
   cards:
   - {fileID: 11400000, guid: 4931df1aa01ed8441b7c09f8d42ed494, type: 2}
   - {fileID: 11400000, guid: 34958d024011bed4d83f90834524ea36, type: 2}

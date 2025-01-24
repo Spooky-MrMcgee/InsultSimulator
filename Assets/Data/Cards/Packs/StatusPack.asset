@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Status Pack
   cost: 10
-  cardsToDraw: 3
+  cardsToDraw: 5
   cards:
   - {fileID: 11400000, guid: 7fad0d65c48bcc24cbfa1668dbd3cae4, type: 2}
   - {fileID: 11400000, guid: fa4a199f7a0898e4b935c265d52c3c28, type: 2}

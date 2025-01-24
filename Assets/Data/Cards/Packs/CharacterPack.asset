@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Character Pack
   cost: 10
-  cardsToDraw: 3
+  cardsToDraw: 5
   cards:
   - {fileID: 11400000, guid: 928a2055cb0798a4b868657bffd07325, type: 2}
   - {fileID: 11400000, guid: bd304ff79258415468bad669ab7d8a9e, type: 2}

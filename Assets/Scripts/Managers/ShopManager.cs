@@ -139,6 +139,7 @@ public class ShopManager : MonoBehaviour
 
 	void OpenPack(CardPackData cardPack)
 	{
+		packCards.Clear();
 		for (int x = 0; x < cardPack.cardsToDraw; x++)
 		{
 			randomCardDraw = UnityEngine.Random.Range(0, cardPack.cards.Length);

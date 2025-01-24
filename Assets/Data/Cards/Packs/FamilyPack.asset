@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: Family Pack
   cost: 10
-  cardsToDraw: 3
+  cardsToDraw: 5
   cards:
   - {fileID: 11400000, guid: 1b1a09a459f0a384e9bba1bbb732c8d2, type: 2}
   - {fileID: 11400000, guid: c7fc582f5a46075429aef73d1c4e64e5, type: 2}
