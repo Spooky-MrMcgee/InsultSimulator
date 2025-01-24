@@ -1341,8 +1341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0be6f25087c484f9bb5d680597297c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3486678049097415744, guid: 2fd148e063e6409488769b80cc281f9e, type: 3}
-  visualPrefab: {fileID: 4022932724897706948, guid: a566bd23117f5be439a64cf2bf953a06, type: 3}
+  prefab: {fileID: 3486678049097415744, guid: a566bd23117f5be439a64cf2bf953a06, type: 3}
+  visualPrefab: {fileID: 4022932724897706948, guid: 0f3fe6ebfbed019468c5112f9bf2d360, type: 3}
   deck: {fileID: 8038020050112915954}
   bin: {fileID: 1014689506416456627}
   visualRoot: {fileID: 8451845439289245908}
