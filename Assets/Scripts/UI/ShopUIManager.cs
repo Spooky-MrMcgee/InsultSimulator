@@ -11,9 +11,11 @@ public class ShopUIManager : MonoBehaviour
 
     List<UICard> cardUIs = new();
     List<UICard> packUIs = new();
+    List<UICard> upgradeUIs = new();
 
     List<CardData> playerCards;
     List<CardPackData> playerPacks;
+    List<UpgradeCard> playerUpgrades;
 
     private void Start()
     {
@@ -46,7 +48,7 @@ public class ShopUIManager : MonoBehaviour
         StartShop();
     }
 
-    void OnStateChanged(ShopManager.ShopStates state, List<CardData> cards, List<CardPackData> packs)
+    void OnStateChanged(ShopManager.ShopStates state, List<CardData> cards, List<CardPackData> packs, List<UpgradeCard> upgrades)
     {
         if (state == ShopManager.ShopStates.PlayerOneBuying)
             PersistentUIManager.Instance.SetPlayer1Turn(true);
@@ -55,6 +57,7 @@ public class ShopUIManager : MonoBehaviour
 
         playerCards = cards;
         playerPacks = packs;
+        playerUpgrades = upgrades;
 
         if(state == ShopManager.ShopStates.PlayerTwoBuying)
         {
@@ -101,11 +104,39 @@ public class ShopUIManager : MonoBehaviour
                 UpdateCardAffordability();
             });
         }
+
+        foreach (var upgrade in playerUpgrades)
+        {
+            var ui = CardSpawner.Instance.SpawnCard(upgrade, true);
+            ui.SetParent(powerupsList);
+
+            upgradeUIs.Add(ui);
+
+            ui.SetOnSelected(() =>
+            {
+                ShopManager.Instance.BuyItem(upgrade);
+                upgradeUIs.Remove(ui);
+                CardSpawner.Instance.DespawnCard(ui);
+
+                RefreshCurrentCards();
+                UpdateCardAffordability();
+            });
+        }
     }
 
     void UpdateCardAffordability()
     {
         foreach (var card in cardUIs)
+        {
+            card.SetInteractable(ShopManager.Instance.CanBuyItem(card.Data));
+        }
+
+        foreach (var card in packUIs)
+        {
+            card.SetInteractable(ShopManager.Instance.CanBuyItem(card.Data));
+        }
+
+        foreach (var card in upgradeUIs)
         {
             card.SetInteractable(ShopManager.Instance.CanBuyItem(card.Data));
         }
@@ -124,6 +155,11 @@ public class ShopUIManager : MonoBehaviour
         {
             card.RefreshPosition();
         }
+
+        foreach (var card in upgradeUIs)
+        {
+            card.RefreshPosition();
+        }
     }
 
     void DiscardCurrentCards()
@@ -132,14 +168,19 @@ public class ShopUIManager : MonoBehaviour
         {
             CardSpawner.Instance.DespawnCard(card);
         }
+        cardUIs.Clear();
 
         foreach (var card in packUIs)
         {
             CardSpawner.Instance.DespawnCard(card);
         }
-
-        cardUIs.Clear();
         packUIs.Clear();
+
+        foreach (var card in upgradeUIs)
+        {
+            CardSpawner.Instance.DespawnCard(card);
+        }
+        upgradeUIs.Clear();
     }
     
     public void ContinueShopping()

@@ -190,11 +190,14 @@ public class InsultManager : MonoBehaviour
 
         scoreToAdd = subjectScore * complimentMultiplier;
 
+        Debug.Log("Base score is " + scoreToAdd);
+
         if (currentPlayerState == PlayerState.PlayerOne)
         {
             foreach (UpgradeCard upgradeCard in GameManager.Instance.playerOne.upgradeCards)
             {
                 scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
+                Debug.Log("New score is " + scoreToAdd);
             }
         }
         else if (currentPlayerState == PlayerState.PlayerTwo)
