@@ -22,7 +22,6 @@ public class InsultedTrigger : MonoBehaviour
     public void Insulted()
     {
         StopAllCoroutines();
-        Debug.Log("Player is being insulted");
         animTimer = 0;
         StartCoroutine(InsultedAnimation());
     }
@@ -32,12 +31,12 @@ public class InsultedTrigger : MonoBehaviour
         while (animTimer < 1)
         {
             animTimer += Time.deltaTime;
-            if (InsultManager.Instance.currentPlayerState == InsultManager.PlayerSelection.PlayerOne)
+            if (InsultManager.Instance.currentPlayerState == InsultManager.PlayerState.PlayerOne)
             {
-                GameManager.gameManager.playerOne.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
+                GameManager.Instance.playerOne.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
             }
             else
-                GameManager.gameManager.playerTwo.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
+                GameManager.Instance.playerTwo.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
             yield return null;
 
         }
@@ -50,10 +49,10 @@ public class InsultedTrigger : MonoBehaviour
         while (animTimer > 0)
         {
             animTimer -= Time.deltaTime;
-            if (InsultManager.Instance.currentPlayerState == InsultManager.PlayerSelection.PlayerOne)
-                GameManager.gameManager.playerOne.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
+            if (InsultManager.Instance.currentPlayerState == InsultManager.PlayerState.PlayerOne)
+                GameManager.Instance.playerOne.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
             else
-                GameManager.gameManager.playerTwo.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
+                GameManager.Instance.playerTwo.characterMesh.SetBlendShapeWeight(0, animTimer * 100);
             yield return null;
         }
     }

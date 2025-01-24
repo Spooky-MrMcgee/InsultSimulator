@@ -11,86 +11,81 @@ public class InsultManager : MonoBehaviour
         Instance = this;
     }
 
-    public enum PlayerSelection
+    public enum PlayerState
     {
         PlayerOne,
         PlayerTwo,
     }
 
-    public enum CardStates
+    public enum CardState
     {
         SelectSubject,
         SelectPredicate,
         SelectCompliment,
-        PlayCards,
     }
 
-    public event Action<CardStates, List<CardData>> StateChanged;
-    public event Action<PlayerSelection, PlayerStruct> PlayerSelected;
+    public int maxHandSize = 5;
+
+    public event Action<CardState> StateChanged;
+    public event Action<PlayerState> PlayerChanged;
     public event Action<List<CardData>> CardsPlayed;
     public event Action Insulted;
-    public PlayerSelection currentPlayerState { get; private set; }
-    CardStates currentState;
-    List<CardData> cardsToDraw = new List<CardData>();
+
+    public PlayerState currentPlayerState;
+    public CardState currentState;
+
     List<CardData> currentHand = new List<CardData>();
     CardData selectedCard;
-    PlayerStruct currentPlayer;
-    int drawCardNumber;
-    int subjectScore, complimentMultiplier;
+
     int playedRounds;
+
     public static InsultManager insultManager;
     private void Start()
     {
-        GameManager.gameManager.OnGameStateChanged += StartInsult;
+        GameManager.Instance.OnGameStateChanged += StartInsult;
     }
 
     private void OnDestroy()
     {
-        GameManager.gameManager.OnGameStateChanged -= StartInsult;
+        GameManager.Instance.OnGameStateChanged -= StartInsult;
     }
 
-    private void StartInsult(GameManager.GameState gameState)
+    private void StartInsult(GameManager.GameState state)
     {
-        if (gameState == GameManager.GameState.Insult)
+        if (state != GameManager.GameState.Insult) return;
+
+        SetPlayerState(PlayerState.PlayerOne);
+        SetState(CardState.SelectSubject);
+    }
+
+    void SetPlayerState(PlayerState state)
+    {
+        currentPlayerState = state;
+        PlayerChanged?.Invoke(state);
+    }
+
+    void SetState(CardState state)
+    {
+        currentState = state;
+        StateChanged?.Invoke(state);
+    }
+
+    public List<CardData> DrawCards()
+    {
+        return currentState switch
         {
-            currentPlayerState = PlayerSelection.PlayerOne;
-            ChangePlayerState(currentPlayerState);
-            ChangeCardStates(CardStates.SelectSubject);
-            Debug.Log("Insult is starting");
-        }
+            CardState.SelectPredicate => DrawCards(GetActivePlayer().predicateCards),
+            CardState.SelectCompliment => DrawCards(GetActivePlayer().complimentCards),
+            _ => DrawCards(GetActivePlayer().subjectCards),
+        };
     }
 
-    private void SelectCardType(PlayerStruct player)
+    public List<CardData> DrawCards<T>(List<T> cards) where T : CardData
     {
-        switch (currentState)
-        {
-            case CardStates.SelectSubject:
-                Debug.Log("Starting Subject Selection");
-                DrawCards(currentPlayer.subjectCards);
-                break;
+        int drawCardNumber;
+        List<CardData> cardsToDraw = new();
 
-            case CardStates.SelectPredicate:
-                DrawCards(currentPlayer.predicateCards);
-                Debug.Log("Starting Predicate Selection");
-                break;
-
-            case CardStates.SelectCompliment:
-                DrawCards(currentPlayer.complimentCards);
-                Debug.Log("Starting Compliment Selection");
-                break;
-
-            case CardStates.PlayCards:
-                PlayAllCards(currentHand);
-                Debug.Log("Playing Hand.");
-                break;
-        }
-
-    }
-
-    private void DrawCards<T>(List<T> cards) where T : CardData
-    {
-        cardsToDraw.Clear();
-        for (int x = 0; x < currentPlayer.maxHandSize;)
+        for (int x = 0; x < maxHandSize;)
         {
             bool foundCard = false;
             drawCardNumber = UnityEngine.Random.Range(0, cards.Count);
@@ -102,26 +97,15 @@ public class InsultManager : MonoBehaviour
             if (foundCard)
                 continue;
             cardsToDraw.Add(cards[drawCardNumber]);
-            Debug.Log(cardsToDraw[x].content);
             x++;
         }
-    }
 
-    public void ChangePlayerState(PlayerSelection player)
-    {
-        if (player == PlayerSelection.PlayerOne)
-            currentPlayer = GameManager.gameManager.playerOne;
-        else if (player == PlayerSelection.PlayerTwo)
-            currentPlayer = GameManager.gameManager.playerTwo;
-
-        currentPlayerState = player;
-        PlayerSelected?.Invoke(player, currentPlayer);
+        return cardsToDraw;
     }
 
     public void SelectCard(CardData card)
     {
-        if (card != selectedCard)
-            selectedCard = card;
+        selectedCard = card;
     }
 
     public void PlayCard()
@@ -131,13 +115,41 @@ public class InsultManager : MonoBehaviour
         else
         {
             currentHand.Add(selectedCard);
-            ChangeCardStates(currentState + 1);
+
+            if (currentState == CardState.SelectCompliment)
+                FinishRound();
+            else
+                SetState(currentState + 1);
         }
     }
 
-    public void PlayAllCards(List<CardData> cardsToPlay)
+    void FinishRound()
     {
-        foreach (CardData card in cardsToPlay)
+        CalculateHandScore();
+        CardsPlayed?.Invoke(currentHand);
+
+        currentHand.Clear();
+
+        playedRounds++;
+
+        if(playedRounds >= 3)
+        {
+            GameManager.Instance.ChangeGameState(GameManager.GameState.Shop);
+            playedRounds = 0;
+        }
+        else
+        {
+            SetPlayerState(currentPlayerState == PlayerState.PlayerOne ? PlayerState.PlayerTwo : PlayerState.PlayerOne);
+            SetState(CardState.SelectSubject);
+        }
+    }
+
+    void CalculateHandScore()
+    {
+        int subjectScore = 0;
+        int complimentMultiplier = 0;
+
+        foreach (CardData card in currentHand)
         {
             if (card is SubjectCardData subject)
                 subjectScore = subject.score;
@@ -147,44 +159,16 @@ public class InsultManager : MonoBehaviour
                 complimentMultiplier = compliment.score;
         }
         Insulted?.Invoke();
-        currentPlayer.IncreaseScore(subjectScore * complimentMultiplier);
-        ChangeCardStates(CardStates.SelectSubject);
+
+        GetActivePlayer().IncreaseScore(subjectScore * complimentMultiplier);
     }
 
-    public void ChangeCardStates(CardStates state)
+    PlayerStruct GetActivePlayer()
     {
-        currentState = state;
-
-        if (state == CardStates.PlayCards)
+        return currentPlayerState switch
         {
-            CardsPlayed?.Invoke(currentHand);
-            if (currentPlayerState == PlayerSelection.PlayerOne)
-            {
-                ChangePlayerState(PlayerSelection.PlayerTwo); 
-                SelectCardType(currentPlayer);
-                StateChanged?.Invoke(state, cardsToDraw);
-            }
-            else if (currentPlayerState == PlayerSelection.PlayerTwo)
-            {
-                playedRounds++;
-
-                if (playedRounds > 3)
-                {
-                    playedRounds = 0;
-                    GameManager.gameManager.ChangeGameState(GameManager.GameState.Shop);
-                }
-                else
-                {
-                    ChangePlayerState(PlayerSelection.PlayerOne); 
-                    SelectCardType(currentPlayer);
-                    StateChanged?.Invoke(state, cardsToDraw);
-                }
-            }
-        }
-        else
-        {
-            SelectCardType(currentPlayer);
-            StateChanged?.Invoke(state, cardsToDraw);
-        }
+            PlayerState.PlayerOne => GameManager.Instance.playerOne,
+            PlayerState.PlayerTwo => GameManager.Instance.playerTwo,
+        };
     }
 }

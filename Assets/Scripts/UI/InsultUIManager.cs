@@ -12,82 +12,83 @@ public class InsultUIManager : MonoBehaviour
 
     List<UICard> hand = new();
 
-    InsultManager.PlayerSelection currentPlayer;
+    InsultManager.PlayerState currentPlayer;
 
     CardData currentCard;
 
     private void Start()
     {
-        InsultManager.Instance.PlayerSelected += OnPlayerChanged;
+        InsultManager.Instance.PlayerChanged += OnPlayerChanged;
         InsultManager.Instance.StateChanged += OnInsultStateChanged;
         InsultManager.Instance.CardsPlayed += OnCardsPlayed;
     }
 
     private void OnDestroy()
     {
-        InsultManager.Instance.PlayerSelected -= OnPlayerChanged;
+        InsultManager.Instance.PlayerChanged -= OnPlayerChanged;
         InsultManager.Instance.StateChanged -= OnInsultStateChanged;
         InsultManager.Instance.CardsPlayed -= OnCardsPlayed;
     }
 
-    void OnPlayerChanged(InsultManager.PlayerSelection player, PlayerStruct data)
+    void OnPlayerChanged(InsultManager.PlayerState player)
     {
         currentPlayer = player;
 
         switch(player)
         {
-            case InsultManager.PlayerSelection.PlayerOne:
+            case InsultManager.PlayerState.PlayerOne:
                 PersistentUIManager.Instance.SetPlayer1Turn(true);
                 break;
-            case InsultManager.PlayerSelection.PlayerTwo:
+            case InsultManager.PlayerState.PlayerTwo:
                 PersistentUIManager.Instance.SetPlayer2Turn(true);
                 break;
         }
     }
 
-    void OnInsultStateChanged(InsultManager.CardStates state, List<CardData> availableCards)
+    void OnInsultStateChanged(InsultManager.CardState state)
     {
-        StartCoroutine(StartRound(state, availableCards));
+        StartCoroutine(StartRound(state));
     }
 
-    IEnumerator StartRound(InsultManager.CardStates state, List<CardData> availableCards)
+    IEnumerator StartRound(InsultManager.CardState state)
     {
         selectButton.interactable = false;
 
-        if (state != InsultManager.CardStates.PlayCards)
+        //Reset bubbles
+        if (state == InsultManager.CardState.SelectSubject)
         {
-            if (state == InsultManager.CardStates.SelectSubject)
+            yield return new WaitForSeconds(1);
+            player1Bubble.ResetText();
+            player2Bubble.ResetText();
+
+            bool isPlayer1Turn = InsultManager.Instance.currentPlayerState == InsultManager.PlayerState.PlayerOne;
+
+            player1Bubble.ToggleVisibility(isPlayer1Turn);
+            player2Bubble.ToggleVisibility(!isPlayer1Turn);
+        }
+
+        //Display cards
+        var cards = InsultManager.Instance.DrawCards();
+
+        foreach (var card in cards)
+        {
+            var cardUI = CardSpawner.Instance.SpawnCard(card, false);
+            cardUI.SetParent(handRoot);
+
+            cardUI.SetOnSelected(() =>
             {
-                yield return new WaitForSeconds(1);
-                player1Bubble.ResetText();
-                player2Bubble.ResetText();
+                InsultManager.Instance.SelectCard(card);
+                selectButton.interactable = true;
 
-                bool isPlayer1Turn = InsultManager.Instance.currentPlayerState == InsultManager.PlayerSelection.PlayerOne;
-
-                player1Bubble.ToggleVisibility(isPlayer1Turn);
-                player2Bubble.ToggleVisibility(!isPlayer1Turn);
-            }
-
-            foreach (var card in availableCards)
-            {
-                var cardUI = CardSpawner.Instance.SpawnCard(card, false);
-                cardUI.SetParent(handRoot);
-
-                cardUI.SetOnSelected(() =>
+                if (currentCard != null)
                 {
-                    InsultManager.Instance.SelectCard(card);
-                    selectButton.interactable = true;
+                    GetSpeechBubble().RemoveFrom(currentCard.content);
+                }
+                GetSpeechBubble().AddTo(card.content);
+                currentCard = card;
+            });
 
-                    if (currentCard != null)
-                    {
-                        GetSpeechBubble().RemoveFrom(currentCard.content);
-                    }
-                    GetSpeechBubble().AddTo(card.content);
-                    currentCard = card;
-                });
-
-                hand.Add(cardUI);
-            }
+            hand.Add(cardUI);
         }
     }
 
@@ -98,7 +99,7 @@ public class InsultUIManager : MonoBehaviour
 
     SpeechBubble GetSpeechBubble()
     {
-        return currentPlayer == InsultManager.PlayerSelection.PlayerOne ? player1Bubble : player2Bubble;
+        return currentPlayer == InsultManager.PlayerState.PlayerOne ? player1Bubble : player2Bubble;
     }
 
 
