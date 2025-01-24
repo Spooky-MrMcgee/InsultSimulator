@@ -28,6 +28,7 @@ public class UICardVisual : MonoBehaviour
     float animTimer = 0;
 
     Vector3 currentPos;
+    float currentRot;
 
     private void Awake()
     {
@@ -90,13 +91,18 @@ public class UICardVisual : MonoBehaviour
 
     IEnumerator Animate(Vector3 target)
     {
+        var newRot = UnityEngine.Random.Range(-5, 5);
+
         while (animTimer < 1)
         {
             animTimer += Time.deltaTime / animationDuration;
 
             rect.position = Vector3.Lerp(currentPos, target, EaseOutExpo(animTimer));
+            rect.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(currentRot, newRot, EaseOutExpo(animTimer)));
             yield return null;
         }
+
+        currentRot = newRot;
     }
 
     float EaseOutExpo(float time) {
