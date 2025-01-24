@@ -22,9 +22,11 @@ public class ShopManager : MonoBehaviour
 	CardPackData cardPack;
 	[SerializeField] CardLibrary cardLibrary;
 	[SerializeField] CardPackLibrary packLibrary;
+	[SerializeField] UpgradeLibrary upgradeLibrary;
 	
 	[SerializeField] List<CardData> cardsToDisplay = new List<CardData>();
 	[SerializeField] List<CardPackData> packsToDisplay = new List<CardPackData>();
+	[SerializeField] List<UpgradeCard> upgradesToDisplay = new List<UpgradeCard>();
 	// List<Packs> packs;
 	// List<Upgrades> upgrades;
 	public enum ShopStates
@@ -35,7 +37,7 @@ public class ShopManager : MonoBehaviour
 
 	ShopStates shopStates;
 
-	public event Action<ShopStates, List<CardData>, List<CardPackData>> StateChange;
+	public event Action<ShopStates, List<CardData>, List<CardPackData>, List<UpgradeCard>> StateChange;
 	public event Action<List<CardData>> PackOpened;
 
     private void Start()
@@ -87,8 +89,8 @@ public class ShopManager : MonoBehaviour
 	{
         for (int x = 0; x < maxUpgradeLimit; x++)
         {
-            shopItemToDisplay = UnityEngine.Random.Range(0, cardLibrary.cards.Count);
-            cardsToDisplay.Add(cardLibrary.cards[shopItemToDisplay]);
+            shopItemToDisplay = UnityEngine.Random.Range(0, upgradeLibrary.upgrades.Count);
+			upgradesToDisplay.Add(upgradeLibrary.upgrades[shopItemToDisplay]);
         }
     }
 
@@ -168,6 +170,6 @@ public class ShopManager : MonoBehaviour
 
 		Shop();
 		Currency = moneyPerRound;
-		StateChange?.Invoke(state, cardsToDisplay, packsToDisplay);
+		StateChange?.Invoke(state, cardsToDisplay, packsToDisplay, upgradesToDisplay);
 	}
 }
