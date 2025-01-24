@@ -40,7 +40,12 @@ public class InsultUIManager : MonoBehaviour
         if (on)
             transform.localScale = Vector3.one;
         else
-            transform.localScale = Vector3.zero;
+            Invoke(nameof(Disable), 2);
+    }
+
+    void Disable()
+    {
+        transform.localScale = Vector3.zero;
     }
 
     void OnPlayerChanged(InsultManager.PlayerState player)
