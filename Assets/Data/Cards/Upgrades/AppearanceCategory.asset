@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8ab0e2472b01324092651e9a688bda9, type: 3}
-  m_Name: FamilyUpgrade
+  m_Script: {fileID: 11500000, guid: 12ddfe63573bf6045b1127ae0cf6b96a, type: 3}
+  m_Name: AppearanceCategory
   m_EditorClassIdentifier: 
-  name: 
-  cost: 0
-  effect: {fileID: 0}
+  content: Appearance Multiplier
+  cost: 10
+  multiplier: 2
+  subjectType: 3

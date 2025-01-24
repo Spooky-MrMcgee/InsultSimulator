@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Card/Upgrade")]
-public class UpgradeCard : ScriptableObject
+public abstract class UpgradeCard : CardData
 { 
-    public string upgradeName;
-    public int cost;
-    public UpgradeEffect effect;
+    public abstract int OnUpgrade(int score, SubjectCardData subjectCard);
 }
+

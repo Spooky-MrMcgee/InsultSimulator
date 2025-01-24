@@ -31,6 +31,7 @@ public class InsultManager : MonoBehaviour
     public event Action<PlayerState> PlayerChanged;
     public event Action<List<CardData>> CardsPlayed;
     public event Action Insulted;
+    public event Action<int> Scoring;
 
     public PlayerState currentPlayerState;
     public CardState currentState;
@@ -150,19 +151,44 @@ public class InsultManager : MonoBehaviour
     {
         int subjectScore = 0;
         int complimentMultiplier = 0;
-
+        int scoreToAdd = 0;
+        SubjectCardData subjectCard = null;
+        ComplimentCardData complimentCard = null;
         foreach (CardData card in currentHand)
         {
             if (card is SubjectCardData subject)
+            {
                 subjectScore = subject.score;
+                subjectCard = subject;
+            }
             else if (card is PredicateCardData predicate)
             { }
             else if (card is ComplimentCardData compliment)
+            {
                 complimentMultiplier = compliment.score;
+                complimentCard = compliment;
+            }
         }
         Insulted?.Invoke();
 
-        GetActivePlayer().IncreaseScore(subjectScore * complimentMultiplier);
+        scoreToAdd = subjectScore * complimentMultiplier;
+
+        if (currentPlayerState == PlayerState.PlayerOne)
+        {
+            foreach (UpgradeCard upgradeCard in GameManager.Instance.playerOne.upgradeCards)
+            {
+                scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
+            }
+        }
+        else if (currentPlayerState == PlayerState.PlayerTwo)
+        {
+            foreach (UpgradeCard upgradeCard in GameManager.Instance.playerTwo.upgradeCards)
+            {
+                scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
+            }
+        }
+
+        GetActivePlayer().IncreaseScore(scoreToAdd);
     }
 
     PlayerStruct GetActivePlayer()
