@@ -29,6 +29,7 @@ public class InsultManager : MonoBehaviour
 
     public event Action<CardState> StateChanged;
     public event Action<PlayerState> PlayerChanged;
+    public event Action FinishedRound;
     public event Action<List<CardData>> CardsPlayed;
     public event Action Insulted;
     public event Action<int> Scoring;
@@ -137,7 +138,23 @@ public class InsultManager : MonoBehaviour
 
         if(playedRounds >= roundsToPlay)
         {
+            currentPlayerState = PlayerState.PlayerOne;
+
+            if(GetActivePlayer().Score > GetInactivePlayer().Score)
+            {
+                GetActivePlayer().IncreaseRound();
+            }
+            else
+            {
+                GetInactivePlayer().IncreaseRound();
+            }
+
+            FinishedRound?.Invoke();
             GameManager.Instance.ChangeGameState(GameManager.GameState.Shop);
+
+            GetActivePlayer().ResetScore();
+            GetInactivePlayer().ResetScore();
+
             playedRounds = 0;
         }
         else
@@ -187,8 +204,8 @@ public class InsultManager : MonoBehaviour
                 scoreToAdd = upgradeCard.OnUpgrade(scoreToAdd, subjectCard);
             }
         }
-
-        GetActivePlayer().IncreaseScore(scoreToAdd);
+        var highscore = GetActivePlayer().IncreaseScore(scoreToAdd);
+        if (highscore) GetActivePlayer().highestScoreInsult = new List<CardData>(currentHand);
     }
 
     PlayerStruct GetActivePlayer()
@@ -197,6 +214,15 @@ public class InsultManager : MonoBehaviour
         {
             PlayerState.PlayerOne => GameManager.Instance.playerOne,
             PlayerState.PlayerTwo => GameManager.Instance.playerTwo,
+        };
+    }
+
+    PlayerStruct GetInactivePlayer()
+    {
+        return currentPlayerState switch
+        {
+            PlayerState.PlayerOne => GameManager.Instance.playerTwo,
+            PlayerState.PlayerTwo => GameManager.Instance.playerOne,
         };
     }
 }

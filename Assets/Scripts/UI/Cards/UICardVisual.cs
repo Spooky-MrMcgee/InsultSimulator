@@ -19,7 +19,7 @@ public class UICardVisual : MonoBehaviour
     float animationDuration = 0.5f;
 
     [SerializeField]
-    public Sprite subjectCard, predicateCard, complimentCard, packCard;
+    public Sprite subjectCard, predicateCard, complimentCard, packCard, upgradeCard;
 
     RectTransform rect;
 
@@ -62,6 +62,11 @@ public class UICardVisual : MonoBehaviour
             background.type = Image.Type.Simple;
             content.color = Color.white;
             cost.color = Color.white;
+        }
+        else
+        {
+            background.sprite = upgradeCard;
+            background.type = Image.Type.Simple;
         }
     }
 

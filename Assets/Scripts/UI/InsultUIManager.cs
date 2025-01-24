@@ -21,6 +21,7 @@ public class InsultUIManager : MonoBehaviour
         InsultManager.Instance.PlayerChanged += OnPlayerChanged;
         InsultManager.Instance.StateChanged += OnInsultStateChanged;
         InsultManager.Instance.CardsPlayed += OnCardsPlayed;
+        InsultManager.Instance.FinishedRound += OnScoreChanged;
     }
 
     private void OnDestroy()
@@ -28,13 +29,19 @@ public class InsultUIManager : MonoBehaviour
         InsultManager.Instance.PlayerChanged -= OnPlayerChanged;
         InsultManager.Instance.StateChanged -= OnInsultStateChanged;
         InsultManager.Instance.CardsPlayed -= OnCardsPlayed;
+        InsultManager.Instance.FinishedRound -= OnScoreChanged;
     }
 
     void OnPlayerChanged(InsultManager.PlayerState player)
     {
         currentPlayer = player;
 
-        switch(player)
+        OnScoreChanged();
+    }
+
+    void OnScoreChanged()
+    {
+        switch (currentPlayer)
         {
             case InsultManager.PlayerState.PlayerOne:
                 PersistentUIManager.Instance.SetPlayer1Turn(true);
