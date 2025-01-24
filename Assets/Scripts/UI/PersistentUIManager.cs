@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PersistentUIManager : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PersistentUIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI player1Score, player2Score;
     [SerializeField] RectTransform player1Turn, player2Turn;
+
+    [SerializeField] PlayerRoundCounter player1Rounds, player2Rounds;
 
     private void Awake()
     {
@@ -21,6 +24,16 @@ public class PersistentUIManager : MonoBehaviour
     public void SetPlayer1Score(int score)
     {
         player1Score.SetText(score.ToString());
+    }
+
+    public void SetPlayer1RoundsWon(int rounds)
+    {
+        player1Rounds.SetScore(rounds);
+    }
+
+    public void SetPlayer2RoundsWon(int rounds)
+    {
+        player2Rounds.SetScore(rounds);
     }
 
     public void SetPlayer2Score(int score)
@@ -52,5 +65,8 @@ public class PersistentUIManager : MonoBehaviour
     {
         SetPlayer1Score(GameManager.Instance.playerOne.Score);
         SetPlayer2Score(GameManager.Instance.playerTwo.Score);
+
+        SetPlayer1RoundsWon(GameManager.Instance.playerOne.RoundsWon);
+        SetPlayer2RoundsWon(GameManager.Instance.playerTwo.RoundsWon);
     }
 }

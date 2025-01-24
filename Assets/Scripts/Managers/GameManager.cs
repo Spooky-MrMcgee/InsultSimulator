@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 	{
 		Insult,
 		Shop,
+		Finish
 	}
 
 	GameState currentState;
@@ -57,8 +58,15 @@ public class GameManager : MonoBehaviour
 
     public void ChangeGameState(GameState gameState)
 	{
+		if(playerOne.RoundsWon >= 3 || playerTwo.RoundsWon >= 3)
+        {
+			gameState = GameState.Finish;
+        }
+
 		currentState = gameState;
 		OnGameStateChanged?.Invoke(gameState);
 	}
 
+	public PlayerStruct WinningPlayer => playerOne.RoundsWon > playerTwo.RoundsWon ? playerOne : playerTwo;
+	public PlayerStruct LosingPlayer => playerOne.RoundsWon < playerTwo.RoundsWon ? playerOne : playerTwo;
 }
