@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeLibrary : MonoBehaviour
+[CreateAssetMenu(menuName = "Library/UpgradeLibrary")]
+public class UpgradeLibrary : ScriptableObject
 {
     public List<UpgradeCard> upgrades;
 }
