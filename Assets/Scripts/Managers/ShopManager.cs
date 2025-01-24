@@ -15,7 +15,7 @@ public class ShopManager : MonoBehaviour
 	[SerializeField] int moneyPerRound = 15;
 
 	public int Currency { get; private set; }
-	int maxCardLimit = 5, maxPackLimit = 3, maxUpgradeLimit, shopItemToDisplay, randomCardDraw;
+	int maxCardLimit = 5, maxPackLimit = 3, maxUpgradeLimit = 3, shopItemToDisplay, randomCardDraw;
 	CardData cardToPurchase;
 	PlayerStruct playerPurchasing;
 	List<CardData> packCards = new List<CardData>();
@@ -87,6 +87,8 @@ public class ShopManager : MonoBehaviour
     }
 	void PopulateUpgrades()
 	{
+		upgradesToDisplay.Clear();
+
         for (int x = 0; x < maxUpgradeLimit; x++)
         {
             shopItemToDisplay = UnityEngine.Random.Range(0, upgradeLibrary.upgrades.Count);
@@ -94,23 +96,26 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-	public void BuyItem<T>(T purchasedItem)
+	public void BuyItem<T>(T purchasedItem) where T : CardData
 	{
+		Debug.Log("BUYING " + purchasedItem.content);
+
 		playerPurchasing = GetCurrentPlayer();
-		if (purchasedItem is CardPackData packItem && Currency >= packItem.cost)
+		if (purchasedItem is CardPackData packItem && Currency >= purchasedItem.cost)
 		{
 			OpenPack(packItem);
 			Currency -= packItem.cost;
 		}
-		else if (purchasedItem is CardData cardItem && Currency >= cardItem.cost)
+		else if (purchasedItem is UpgradeCard upgradeItem && Currency >= purchasedItem.cost)
+		{
+			Debug.Log("Adding item " + upgradeItem.content);
+			playerPurchasing.AddUpgrade(upgradeItem);
+			Currency -= upgradeItem.cost;
+		}
+		else if (purchasedItem is CardData cardItem && Currency >= purchasedItem.cost)
 		{
 			playerPurchasing.AddCards(cardItem);
 			Currency -= cardItem.cost;
-		}
-		else if (purchasedItem is UpgradeCard upgradeItem && Currency >= upgradeItem.cost)
-		{
-			playerPurchasing.AddUpgrade(upgradeItem);
-			Currency -= upgradeItem.cost;
 		}
 	}
 
