@@ -3440,6 +3440,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1 Rounds Won
       objectReference: {fileID: 0}
+    - target: {fileID: 8819960741593386443, guid: 5ebd8a2b3a1c85c4cbc59af107728338, type: 3}
+      propertyPath: full
+      value: 
+      objectReference: {fileID: 21300000, guid: 0628fa6f80cfe5247b18b31442809b24, type: 3}
+    - target: {fileID: 8819960741593386443, guid: 5ebd8a2b3a1c85c4cbc59af107728338, type: 3}
+      propertyPath: empty
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f6ec732ad8bbd346ac9157ab30c8bb7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3747,6 +3755,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8819960741593386443, guid: 5ebd8a2b3a1c85c4cbc59af107728338, type: 3}
+      propertyPath: full
+      value: 
+      objectReference: {fileID: 21300000, guid: 0628fa6f80cfe5247b18b31442809b24, type: 3}
+    - target: {fileID: 8819960741593386443, guid: 5ebd8a2b3a1c85c4cbc59af107728338, type: 3}
+      propertyPath: empty
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f6ec732ad8bbd346ac9157ab30c8bb7, type: 3}
+    - target: {fileID: 8819960741593386443, guid: 5ebd8a2b3a1c85c4cbc59af107728338, type: 3}
       propertyPath: 'counters.Array.data[0]'
       value: 
       objectReference: {fileID: 5509395972075600750}
@@ -3901,9 +3917,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1756884911680987381, guid: b990bcaef82b3fb488fa2a804ad0ff68, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756884911680987381, guid: b990bcaef82b3fb488fa2a804ad0ff68, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0dc0f55fbb92287459b3f7ba2f89487f, type: 3}
+      objectReference: {fileID: 21300000, guid: 57b64fa5b0e4dac4ca58f4e9a770e311, type: 3}
     - target: {fileID: 2007820223561679033, guid: b990bcaef82b3fb488fa2a804ad0ff68, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -3974,7 +3994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6712767780102381952, guid: b990bcaef82b3fb488fa2a804ad0ff68, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.5
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 8175847769966070963, guid: b990bcaef82b3fb488fa2a804ad0ff68, type: 3}
       propertyPath: m_Name

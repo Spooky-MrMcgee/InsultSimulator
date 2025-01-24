@@ -16,7 +16,7 @@ public class PlayerStruct
     public List<PredicateCardData> predicateCards { get; private set; } = new List<PredicateCardData>();
     public List<SubjectCardData> subjectCards { get; private set; } = new List<SubjectCardData>();
     public List<ComplimentCardData> complimentCards { get; private set; } = new List<ComplimentCardData>();
-    public List<UpgradeCard> upgradeCards { get; private set; }
+    public List<UpgradeCard> upgradeCards { get; private set; } = new();
 
     public void AddCards(CardData card)
     {
